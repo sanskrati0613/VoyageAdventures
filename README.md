@@ -2,7 +2,7 @@
 **Modern Adventure Travel Planning Platform**
 
 Bon Voyage Adventures is a responsive, single-page web application designed to simplify the discovery and booking of unique adventure travel packages.  
-Built as a **Capstone/Portfolio project**, it showcases strong dynamic frontend functionality and a user-centric (UX) design focused on clarity and ease of use.
+Built as a **IBM SkillsBuild Internship Project**, it showcases strong dynamic frontend functionality and a user-centric (UX) design focused on clarity and ease of use.
 
 ---
 
