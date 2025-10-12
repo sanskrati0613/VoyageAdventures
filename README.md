@@ -10,7 +10,7 @@ Built as a **IBM SkillsBuild Internship Project**, it showcases strong dynamic f
 
 | Type | Link | Notes |
 |------|------|-------|
-| **Live Site** | [👉 Visit Here](INSERT_YOUR_GITHUB_PAGES_URL_HERE) | Deployed via GitHub Pages for demonstration. |
+| **Live Site** | [👉 Visit Here](https://voyage-adventures.vercel.app/) | Deployed via Vercel for demonstration. |
 | **Repository** | [🗂️ GitHub Repo](INSERT_YOUR_REPOSITORY_URL_HERE) | You are here! |
 
 ---
