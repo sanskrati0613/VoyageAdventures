@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Voyage Adventures</title>
-    
-    <link rel="stylesheet" href="style.css">   
+
+    <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
 <body class="antialiased">
@@ -47,61 +47,455 @@
     </header>
 
     <main>
-        <!-- Hero Section -->
+<!-- =========================================
+     HERO SECTION
+========================================= -->
+
         <section class="hero-section" id="hero">
-            <div class="hero-image-carousel">
-                <img src="assets/KASHMIR.jpg" alt="Scenic travel destination 1">
-                <img src="assets/varanasi.jpg" alt="Scenic travel destination 2">
-                <img src="assets/sunset.jpg "  alt="Scenic travel destination 3">
-                <img src="assets/adventure.jpg" alt="Scenic travel destination 4">
-                <img src="assets/mountain.jpg" alt="Scenic travel destination 5">
+
+            <div class="hero-container">
+
+                <!-- Images -->
+
+                <div class="hero-slides">
+
+                    <div class="hero-slide active">
+                        <img
+                            src="assets/KASHMIR.jpg"
+                            alt="Beautiful Kashmir mountains">
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="assets/varanasi.jpg"
+                            alt="Varanasi ghats">
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="assets/sunset.jpg"
+                            alt="Beautiful sunset destination">
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="assets/adventure.jpg"
+                            alt="Adventure travel experience">
+                    </div>
+
+                    <div class="hero-slide">
+                        <img
+                            src="assets/mountain.jpg"
+                            alt="Mountain landscape">
+                    </div>
+
+                </div>
+
+                <!-- Overlay -->
+
+                <div class="hero-overlay"></div>
+
+                <!-- Content -->
+
+                <div class="hero-content fade-in">
+
+                    <span class="hero-eyebrow">
+                        ✦ EXPLORE • EXPERIENCE • ESCAPE
+                    </span>
+
+                    <h1 class="hero-title">
+                        Your Next Great
+                        <span>Adventure</span>
+                        Awaits
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Discover breathtaking destinations,
+                        unforgettable experiences, and journeys
+                        designed around you.
+                    </p>
+
+                    <a
+                        href="#destinations"
+                        class="hero-cta">
+
+                        Explore Destinations
+
+                        <span class="hero-cta-arrow">
+                            →
+                        </span>
+
+                    </a>
+
+                </div>
+
+                <!-- Slide Controls -->
+
+                <button
+                    class="hero-control hero-prev"
+                    id="hero-prev"
+                    aria-label="Previous destination">
+                    ←
+                </button>
+
+                <button
+                    class="hero-control hero-next"
+                    id="hero-next"
+                    aria-label="Next destination">
+                    →
+                </button>
+
+                <!-- Slide Indicators -->
+
+                <div
+                    class="hero-indicators"
+                    id="hero-indicators">
+
+                    <button
+                        class="hero-dot active"
+                        data-slide="0"
+                        aria-label="Go to slide 1">
+                    </button>
+
+                    <button
+                        class="hero-dot"
+                        data-slide="1"
+                        aria-label="Go to slide 2">
+                    </button>
+
+                    <button
+                        class="hero-dot"
+                        data-slide="2"
+                        aria-label="Go to slide 3">
+                    </button>
+
+                    <button
+                        class="hero-dot"
+                        data-slide="3"
+                        aria-label="Go to slide 4">
+                    </button>
+
+                    <button
+                        class="hero-dot"
+                        data-slide="4"
+                        aria-label="Go to slide 5">
+                    </button>
+
+                </div>
+
+                <!-- Bottom location indicator -->
+
+                <div class="hero-location">
+
+                    <span class="hero-location-icon">
+                        📍
+                    </span>
+
+                    <span id="hero-location-name">
+                        Kashmir, India
+                    </span>
+
+                </div>
+
             </div>
-            <div class="hero-overlay"></div>
-            <div class="hero-content fade-in">
-                <h1 class="hero-title">Your Next Great Adventure Awaits</h1>
-                <p class="hero-subtitle">Explore breathtaking landscapes and create unforgettable memories with our expertly crafted tours.</p>
-                <a href="#destinations" class="hero-cta">
-                    Explore Destinations
-                    <img src="/assets/arrow.png" alt="Arrow right icon" height="25">
-                </a>
-            </div>
+
         </section>
 
-        <!-- Featured Destinations Section -->
-        <section id="destinations" class="section-padding" style="background-color: #f9f9f9;">
-            <div class="container text-center fade-in">
-                <h2 class="section-title">Popular Destinations</h2>
-                <p class="section-subtitle">Discover our most sought-after travel spots, hand-picked to give you the adventure of a lifetime.</p>
-                <div class="destinations-grid">
-                    <!-- Destination Card 1 -->
-                    <a href="#" class="destination-card">
-                        <img src="assets/KASHMIR.jpg" alt="Mountain View">
-                        <div class="destination-card-content">
-                            <h3 class="destination-card-title">Kashmir</h3>
-                            <p class="destination-card-description">Hike through pristine trails and witness breathtaking panoramic views. Perfect for nature lovers.</p>
-                            <span class="destination-card-cta">Explore</span>
-                        </div>
-                    </a>
-                    <!-- Destination Card 2 -->
-                    <a href="#" class="destination-card">
-                        <img src="assets/varanasi.jpg" alt="Ancient City">
-                        <div class="destination-card-content">
-                            <h3 class="destination-card-title">Varanasi</h3>
-                            <p class="destination-card-description">Step back in time and discover the secrets of ancient civilizations and stunning architecture.</p>
-                            <span class="destination-card-cta">Explore</span>
-                        </div>
-                    </a>
-                    <!-- Destination Card 3 -->
-                    <a href="#" class="destination-card">
-                        <img src="assets/mountain.jpg" alt="Tropical Beach">
-                        <div class="destination-card-content">
-                            <h3 class="destination-card-title">Tropical Paradise</h3>
-                            <p class="destination-card-description">Relax on sun-kissed beaches and swim in crystal-clear waters. The ultimate getaway.</p>
-                            <span class="destination-card-cta">Explore</span>
-                        </div>
-                    </a>
+        <!-- Destinations Section -->
+        <section id="destinations" class="destinations-section">
+
+            <div class="container">
+
+                <div class="section-header fade-in">
+                    <span class="section-tag">EXPLORE THE WORLD</span>
+
+                    <h2 class="section-title">
+                        Find Your Next Destination
+                    </h2>
+
+                    <p class="section-subtitle">
+                        Discover breathtaking places, unforgettable experiences,
+                        and adventures waiting for you.
+                    </p>
                 </div>
+
+                <!-- Search -->
+                <div class="destination-search-wrapper">
+
+                    <div class="destination-search">
+
+                        <span class="search-icon">⌕</span>
+
+                        <input
+                            type="text"
+                            id="destination-search"
+                            placeholder="Search destinations..."
+                            autocomplete="off"
+                        >
+
+                        <button id="clear-search" class="clear-search">
+                            ×
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Category Filters -->
+                <div class="destination-filters">
+
+                    <button
+                        class="filter-button active"
+                        data-category="all">
+                        All
+                    </button>
+
+                    <button
+                        class="filter-button"
+                        data-category="mountain">
+                        🏔️ Mountains
+                    </button>
+
+                    <button
+                        class="filter-button"
+                        data-category="culture">
+                        🕌 Culture
+                    </button>
+
+                    <button
+                        class="filter-button"
+                        data-category="beach">
+                        🏖️ Beach
+                    </button>
+
+                    <button
+                        class="filter-button"
+                        data-category="adventure">
+                        🧗 Adventure
+                    </button>
+
+                </div>
+
+                <!-- Destination Cards -->
+                <div
+                    class="destinations-grid"
+                    id="destinations-grid">
+
+                    <!-- Kashmir -->
+                    <article
+                        class="destination-card"
+                        data-name="Kashmir"
+                        data-category="mountain adventure">
+
+                        <div class="destination-image-wrapper">
+
+                            <img
+                                src="assets/KASHMIR.jpg"
+                                alt="Beautiful Kashmir mountains">
+
+                            <span class="destination-badge">
+                                Popular
+                            </span>
+
+                            <button
+                                class="wishlist-button"
+                                aria-label="Add Kashmir to wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="destination-card-content">
+
+                            <div class="destination-location">
+                                📍 Kashmir, India
+                            </div>
+
+                            <h3 class="destination-card-title">
+                                Kashmir
+                            </h3>
+
+                            <p class="destination-card-description">
+                                Explore breathtaking valleys, serene lakes,
+                                snow-capped mountains and unforgettable
+                                Himalayan landscapes.
+                            </p>
+
+                            <div class="destination-card-footer">
+
+                                <div>
+                                    <span class="price-label">
+                                        Starting from
+                                    </span>
+
+                                    <strong class="destination-price">
+                                        ₹12,999
+                                    </strong>
+                                </div>
+
+                                <button
+                                    class="explore-button"
+                                    data-destination="kashmir">
+                                    Explore →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Varanasi -->
+                    <article
+                        class="destination-card"
+                        data-name="Varanasi"
+                        data-category="culture">
+
+                        <div class="destination-image-wrapper">
+
+                            <img
+                                src="assets/varanasi.jpg"
+                                alt="Varanasi ghats">
+
+                            <span class="destination-badge">
+                                Cultural
+                            </span>
+
+                            <button
+                                class="wishlist-button"
+                                aria-label="Add Varanasi to wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="destination-card-content">
+
+                            <div class="destination-location">
+                                📍 Varanasi, India
+                            </div>
+
+                            <h3 class="destination-card-title">
+                                Varanasi
+                            </h3>
+
+                            <p class="destination-card-description">
+                                Experience ancient traditions, spiritual
+                                ceremonies, historic ghats and the vibrant
+                                culture of one of India's oldest cities.
+                            </p>
+
+                            <div class="destination-card-footer">
+
+                                <div>
+                                    <span class="price-label">
+                                        Starting from
+                                    </span>
+
+                                    <strong class="destination-price">
+                                        ₹8,999
+                                    </strong>
+                                </div>
+
+                                <button
+                                    class="explore-button"
+                                    data-destination="varanasi">
+                                    Explore →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                    <!-- Manali -->
+                    <article
+                        class="destination-card"
+                        data-name="Manali"
+                        data-category="mountain adventure">
+
+                        <div class="destination-image-wrapper">
+
+                            <img
+                                src="assets/mountain.jpg"
+                                alt="Mountain landscape">
+
+                            <span class="destination-badge">
+                                Adventure
+                            </span>
+
+                            <button
+                                class="wishlist-button"
+                                aria-label="Add Manali to wishlist">
+                                ♡
+                            </button>
+
+                        </div>
+
+                        <div class="destination-card-content">
+
+                            <div class="destination-location">
+                                📍 Manali, India
+                            </div>
+
+                            <h3 class="destination-card-title">
+                                Manali
+                            </h3>
+
+                            <p class="destination-card-description">
+                                Escape into the Himalayas with mountain
+                                adventures, scenic valleys, trekking,
+                                rivers and unforgettable experiences.
+                            </p>
+
+                            <div class="destination-card-footer">
+
+                                <div>
+                                    <span class="price-label">
+                                        Starting from
+                                    </span>
+
+                                    <strong class="destination-price">
+                                        ₹10,999
+                                    </strong>
+                                </div>
+
+                                <button
+                                    class="explore-button"
+                                    data-destination="manali">
+                                    Explore →
+                                </button>
+
+                            </div>
+
+                        </div>
+
+                    </article>
+
+                </div>
+
+                <!-- No Results -->
+                <div
+                    id="no-destinations"
+                    class="no-destinations"
+                    hidden>
+
+                    <div class="no-destinations-icon">
+                        🧭
+                    </div>
+
+                    <h3>No destinations found</h3>
+
+                    <p>
+                        Try searching for another destination or
+                        selecting a different category.
+                    </p>
+
+                </div>
+
             </div>
+
         </section>
 
         <!-- Testimonials Section -->
@@ -109,7 +503,7 @@
             <div class="container text-center fade-in">
                 <h2 class="section-title">What Our Travelers Say</h2>
                 <p class="section-subtitle">Don't just take our word for it. Read what our happy customers have to say about their adventures with us.</p>
-                <div class="testimonials-grid">
+                <div class="testimonials-grid" id="testimonials-container">
                     <!-- Testimonial 1 -->
                     <div class="testimonial-card">
                         <p class="testimonial-text">"The trip was perfectly planned and executed. We saw so much and the guides were incredibly knowledgeable. I can't wait to book my next trip!"</p>
@@ -143,7 +537,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Testimonial 3 -->
+                    <!-- Testimonial 4 -->
                     <div class="testimonial-card">
                         <p class="testimonial-text">"A trip I will never forget. The local culture, the food, and the people made it truly special. Thank you for the amazing memories!"</p>
                         <div class="testimonial-author">
@@ -154,7 +548,7 @@
                             </div>
                         </div>
                     </div>
-                    <!-- Testimonial 3 -->
+                    <!-- Testimonial 5 -->
                     <div class="testimonial-card">
                         <p class="testimonial-text">"A trip I will never forget. The local culture, the food, and the people made it truly special. Thank you for the amazing memories!"</p>
                         <div class="testimonial-author">
@@ -174,9 +568,9 @@
             <div class="container text-center fade-in">
     <h2 class="cta-title">Ready to Start Your Journey?</h2>
     <p class="cta-text">Contact us today to plan the perfect escape. Our team of experts is ready to help you create a personalized itinerary.</p>
-    <a href="#" id="open-contact-popup" class="cta-button-white">
+    <button type="button" id="open-contact-popup" class="cta-button-white">
         Get in Touch
-    </a>
+    </button>
 </div>
 
         </section>
@@ -224,5 +618,678 @@
             <p>&copy; 2025 Voyage Adventures. All Rights Reserved.</p>
         </div>
     </footer>
+
+<!-- =========================================
+     DESTINATION DETAILS MODAL
+========================================= -->
+
+<div id="destination-modal" class="destination-modal">
+
+    <div class="destination-modal-overlay"></div>
+
+    <div class="destination-modal-content">
+
+        <!-- Close Button -->
+        <button
+            id="close-destination-modal"
+            class="modal-close"
+            aria-label="Close destination details">
+            ×
+        </button>
+
+        <!-- Image -->
+        <div class="modal-image-wrapper">
+
+            <img
+                id="modal-destination-image"
+                src=""
+                alt="Destination">
+
+            <div class="modal-image-overlay"></div>
+
+            <div class="modal-image-info">
+
+                <span id="modal-destination-location">
+                    📍 India
+                </span>
+
+                <h2 id="modal-destination-name">
+                    Kashmir
+                </h2>
+
+            </div>
+
+        </div>
+
+        <!-- Details -->
+        <div class="modal-details">
+
+            <div class="modal-top-row">
+
+                <div class="modal-rating">
+                    ⭐
+                    <strong id="modal-rating">
+                        4.8
+                    </strong>
+
+                    <span>
+                        Excellent
+                    </span>
+                </div>
+
+                <div class="modal-price">
+
+                    <span>
+                        Starting from
+                    </span>
+
+                    <strong id="modal-price">
+                        ₹12,999
+                    </strong>
+
+                    <small>
+                        per person
+                    </small>
+
+                </div>
+
+            </div>
+
+            <!-- Description -->
+
+            <p
+                id="modal-destination-description"
+                class="modal-description">
+            </p>
+
+            <!-- Trip Information -->
+
+            <div class="trip-info-grid">
+
+                <div class="trip-info-item">
+
+                    <span class="trip-info-icon">
+                        📅
+                    </span>
+
+                    <div>
+                        <small>
+                            Duration
+                        </small>
+
+                        <strong id="modal-duration">
+                            5 Days / 4 Nights
+                        </strong>
+                    </div>
+
+                </div>
+
+                <div class="trip-info-item">
+
+                    <span class="trip-info-icon">
+                        👥
+                    </span>
+
+                    <div>
+                        <small>
+                            Group Size
+                        </small>
+
+                        <strong>
+                            Up to 12 people
+                        </strong>
+                    </div>
+
+                </div>
+
+                <div class="trip-info-item">
+
+                    <span class="trip-info-icon">
+                        🌤️
+                    </span>
+
+                    <div>
+                        <small>
+                            Best Time
+                        </small>
+
+                        <strong id="modal-best-time">
+                            April – October
+                        </strong>
+                    </div>
+
+                </div>
+
+                <div class="trip-info-item">
+
+                    <span class="trip-info-icon">
+                        🎒
+                    </span>
+
+                    <div>
+                        <small>
+                            Trip Type
+                        </small>
+
+                        <strong id="modal-trip-type">
+                            Adventure
+                        </strong>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Highlights -->
+
+            <div class="modal-highlights">
+
+                <h3>
+                    Trip Highlights
+                </h3>
+
+                <ul id="modal-highlights-list">
+                </ul>
+
+            </div>
+
+            <!-- Actions -->
+
+            <div class="modal-actions">
+
+                <button
+                    id="modal-wishlist-button"
+                    class="modal-wishlist-button">
+                    ♡ Save to Wishlist
+                </button>
+
+                <button
+                    id="book-destination-button"
+                    class="modal-book-button">
+                    Book This Trip →
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     BOOKING MODAL
+========================================= -->
+
+<div id="booking-modal" class="booking-modal">
+
+    <div class="booking-modal-overlay"></div>
+
+    <div class="booking-modal-content">
+
+        <button
+            id="close-booking-modal"
+            class="booking-close"
+            aria-label="Close booking">
+            ×
+        </button>
+
+        <!-- Header -->
+
+        <div class="booking-header">
+
+            <span class="section-tag">
+                PLAN YOUR ADVENTURE
+            </span>
+
+            <h2>
+                Book Your Trip
+            </h2>
+
+            <p>
+                Complete the details below to plan
+                your perfect getaway.
+            </p>
+
+        </div>
+
+        <!-- Booking Form -->
+
+        <form id="booking-form">
+
+            <!-- Selected Destination -->
+
+            <div class="selected-destination">
+
+                <img
+                    id="booking-destination-image"
+                    src=""
+                    alt="Selected destination">
+
+                <div>
+
+                    <span>
+                        You're booking
+                    </span>
+
+                    <h3 id="booking-destination-name">
+                        Kashmir
+                    </h3>
+
+                    <p id="booking-destination-price">
+                        ₹12,999 per person
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- Package -->
+
+            <div class="form-group">
+
+                <label for="trip-package">
+                    Choose Package
+                </label>
+
+                <select
+                    id="trip-package"
+                    required>
+
+                    <option
+                        value="standard">
+                        Standard Package
+                    </option>
+
+                    <option
+                        value="comfort">
+                        Comfort Package (+₹4,000/person)
+                    </option>
+
+                    <option
+                        value="premium">
+                        Premium Package (+₹8,000/person)
+                    </option>
+
+                </select>
+
+            </div>
+
+            <!-- Dates -->
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="start-date">
+                        Start Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="start-date"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="end-date">
+                        End Date
+                    </label>
+
+                    <input
+                        type="date"
+                        id="end-date"
+                        required>
+
+                </div>
+
+            </div>
+
+            <!-- Travelers -->
+
+            <div class="form-group">
+
+                <label for="travelers">
+                    Number of Travelers
+                </label>
+
+                <div class="traveler-selector">
+
+                    <button
+                        type="button"
+                        id="decrease-travelers">
+                        −
+                    </button>
+
+                    <span id="traveler-count">
+                        1
+                    </span>
+
+                    <button
+                        type="button"
+                        id="increase-travelers">
+                        +
+                    </button>
+
+                </div>
+
+            </div>
+
+            <!-- Traveler Details -->
+
+            <div class="traveler-details">
+
+                <h3>
+                    Traveler Information
+                </h3>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+
+                        <label for="traveler-name">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            id="traveler-name"
+                            placeholder="Enter your name"
+                            required>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="traveler-email">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            id="traveler-email"
+                            placeholder="you@example.com"
+                            required>
+
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="traveler-phone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="traveler-phone"
+                        placeholder="Enter your phone number"
+                        required>
+
+                </div>
+
+            </div>
+
+            <!-- Special Requests -->
+
+            <div class="form-group">
+
+                <label for="special-request">
+                    Special Requests
+                    <span class="optional">
+                        Optional
+                    </span>
+                </label>
+
+                <textarea
+                    id="special-request"
+                    rows="3"
+                    placeholder="Any special requirements?"></textarea>
+
+            </div>
+
+            <!-- Booking Summary -->
+
+            <div class="booking-summary">
+
+                <h3>
+                    Booking Summary
+                </h3>
+
+                <div class="summary-row">
+
+                    <span>
+                        Price per person
+                    </span>
+
+                    <strong id="summary-price">
+                        ₹12,999
+                    </strong>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>
+                        Travelers
+                    </span>
+
+                    <strong id="summary-travelers">
+                        1
+                    </strong>
+
+                </div>
+
+                <div class="summary-row">
+
+                    <span>
+                        Package
+                    </span>
+
+                    <strong id="summary-package">
+                        Standard
+                    </strong>
+
+                </div>
+
+                <div class="summary-divider"></div>
+
+                <div class="summary-total">
+
+                    <span>
+                        Total
+                    </span>
+
+                    <strong id="summary-total">
+                        ₹12,999
+                    </strong>
+
+                </div>
+
+            </div>
+
+            <!-- Submit -->
+
+            <button
+                type="submit"
+                class="confirm-booking-button">
+
+                Confirm Booking →
+
+            </button>
+
+            <p class="booking-note">
+                Your booking will be confirmed after
+                submitting your details.
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+
+<!-- Booking Success -->
+
+<div
+    id="booking-success"
+    class="booking-success">
+
+    <div class="booking-success-content">
+
+        <div class="success-icon">
+            ✓
+        </div>
+
+        <h2>
+            Booking Request Received!
+        </h2>
+
+        <p>
+            Thank you for choosing Voyage Adventures.
+        </p>
+
+        <div class="booking-reference">
+
+            <span>
+                Booking Reference
+            </span>
+
+            <strong id="booking-reference-number">
+                VA000000
+            </strong>
+
+        </div>
+
+        <p class="success-message">
+            We've received your trip details.
+            A confirmation will be sent to your email.
+        </p>
+
+        <button
+            id="close-success"
+            class="success-close-button">
+            Done
+        </button>
+
+    </div>
+
+</div>
+
+<!-- =========================================
+     CONTACT MODAL
+========================================= -->
+
+<div id="contact-modal" class="contact-modal">
+
+    <div class="contact-modal-overlay"></div>
+
+    <div class="contact-modal-content">
+
+        <button
+            type="button"
+            id="close-contact-modal"
+            class="contact-modal-close"
+            aria-label="Close contact form">
+            ×
+        </button>
+
+        <div class="contact-modal-header">
+
+            <span class="section-tag">
+                LET'S TALK
+            </span>
+
+            <h2>
+                Get in Touch
+            </h2>
+
+            <p>
+                Have a question or need help planning
+                your next adventure? We'd love to hear
+                from you.
+            </p>
+
+        </div>
+
+        <form id="contact-form">
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="contact-name">
+                        Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="contact-name"
+                        placeholder="Your name"
+                        required>
+
+                </div>
+
+                <div class="form-group">
+
+                    <label for="contact-email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="contact-email"
+                        placeholder="you@example.com"
+                        required>
+
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="contact-subject">
+                    Subject
+                </label>
+
+                <input
+                    type="text"
+                    id="contact-subject"
+                    placeholder="How can we help?"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label for="contact-message">
+                    Message
+                </label>
+
+                <textarea
+                    id="contact-message"
+                    rows="5"
+                    placeholder="Tell us about your trip..."
+                    required></textarea>
+
+            </div>
+
+            <button
+                type="submit"
+                class="contact-submit-button">
+
+                Send Message →
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
 </body>
 </html>
