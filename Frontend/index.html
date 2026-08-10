@@ -28,10 +28,23 @@
                 <a href="my-bookings.html" class="nav-link">My Bookings</a>
             </div>
 
-            <!-- CTA Button -->
-            <a href="#contact" class="cta-button">
-                Book a Trip
-            </a>
+            <!-- Profile Button -->
+<div class="profile-menu-wrapper">
+    <button id="profile-button" class="profile-button" type="button">
+        <span class="profile-icon">👤</span>
+        <span>Profile</span>
+    </button>
+
+    <div id="profile-dropdown" class="profile-dropdown">
+        <button id="login-option" type="button">
+            Login
+        </button>
+
+        <button id="register-option" type="button">
+            Create Account
+        </button>
+    </div>
+</div>
 
             <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="mobile-menu-button">
@@ -47,7 +60,9 @@
             <a href="#testimonials" class="nav-link">Testimonials</a>
             <a href="#contact" class="nav-link">Contact</a>
             <a href="my-bookings.html" class="nav-link">My Bookings</a>
-            <a href="#contact" class="cta-button-mobile">Book a Trip</a>
+            <button id="mobile-profile-button" class="cta-button-mobile" type="button">
+    👤 Profile
+</button>
         </div>
     </header>
 
@@ -954,6 +969,272 @@
         </div>
 
     </div>
+
+    <!-- =========================================
+     AUTH MODAL
+========================================= -->
+
+<div id="auth-modal" class="auth-modal">
+
+    <div class="auth-modal-overlay"></div>
+
+    <div class="auth-modal-content">
+
+        <button
+            id="close-auth-modal"
+            class="auth-close"
+            type="button"
+            aria-label="Close">
+            ×
+        </button>
+
+        <!-- LOGIN -->
+        <div id="login-view" class="auth-view">
+
+            <span class="section-tag">WELCOME BACK</span>
+
+            <h2>Login</h2>
+
+            <p class="auth-subtitle">
+                Login to manage your account and bookings.
+            </p>
+
+            <form id="login-form">
+
+                <div class="auth-field">
+                    <label for="login-username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="login-username"
+                        placeholder="Enter your username"
+                        required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="login-password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="login-password"
+                        placeholder="Enter your password"
+                        required>
+                </div>
+
+                <p id="login-error" class="auth-error"></p>
+
+                <button
+                    type="submit"
+                    class="auth-submit-button">
+                    Login
+                </button>
+
+            </form>
+
+            <p class="auth-switch">
+                Don't have an account?
+                <button
+                    type="button"
+                    id="show-register">
+                    Create Account
+                </button>
+            </p>
+
+        </div>
+
+
+        <!-- REGISTER -->
+        <div
+            id="register-view"
+            class="auth-view"
+            style="display: none;">
+
+            <span class="section-tag">JOIN US</span>
+
+            <h2>Create Account</h2>
+
+            <p class="auth-subtitle">
+                Create your Voyage Adventures account.
+            </p>
+
+            <form id="register-form">
+
+                <div class="auth-field">
+                    <label for="register-name">
+                        Full Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="register-name"
+                        placeholder="Enter your full name"
+                        required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="register-username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="register-username"
+                        placeholder="Choose a username"
+                        required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="register-email">
+                        Email
+                    </label>
+
+                    <input
+                        type="email"
+                        id="register-email"
+                        placeholder="Enter your email"
+                        required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="register-phone">
+                        Phone
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="register-phone"
+                        placeholder="Enter your phone number"
+                        required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="register-password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="register-password"
+                        placeholder="Create a password"
+                        required>
+                </div>
+
+                <div class="auth-field">
+                    <label for="register-confirm-password">
+                        Confirm Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="register-confirm-password"
+                        placeholder="Confirm your password"
+                        required>
+                </div>
+
+                <p id="register-error" class="auth-error"></p>
+
+                <button
+                    type="submit"
+                    class="auth-submit-button">
+                    Create Account
+                </button>
+
+            </form>
+
+            <p class="auth-switch">
+                Already have an account?
+                <button
+                    type="button"
+                    id="show-login">
+                    Login
+                </button>
+            </p>
+
+        </div>
+
+    </div>
+</div>
+
+<!-- =========================================
+     USER PROFILE MODAL
+========================================= -->
+
+<div id="profile-modal" class="auth-modal">
+
+    <div class="profile-modal-overlay"></div>
+
+    <div class="profile-modal-content">
+
+        <button
+            id="close-profile-modal"
+            class="auth-close"
+            type="button"
+            aria-label="Close">
+            ×
+        </button>
+
+        <span class="section-tag">MY ACCOUNT</span>
+
+        <h2>My Profile</h2>
+
+        <p class="auth-subtitle">
+            Manage your Voyage Adventures account.
+        </p>
+
+        <div class="profile-details">
+
+            <div class="profile-detail">
+                <span class="profile-detail-label">
+                    Full Name
+                </span>
+
+                <span
+                    id="profile-name"
+                    class="profile-detail-value">
+                </span>
+            </div>
+
+            <div class="profile-detail">
+                <span class="profile-detail-label">
+                    Username
+                </span>
+
+                <span
+                    id="profile-username"
+                    class="profile-detail-value">
+                </span>
+            </div>
+
+            <div class="profile-detail">
+                <span class="profile-detail-label">
+                    Email
+                </span>
+
+                <span
+                    id="profile-email"
+                    class="profile-detail-value">
+                </span>
+            </div>
+
+            <div class="profile-detail">
+                <span class="profile-detail-label">
+                    Phone
+                </span>
+
+                <span
+                    id="profile-phone"
+                    class="profile-detail-value">
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+</div>
 
 </body>
 
