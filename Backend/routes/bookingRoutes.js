@@ -34,9 +34,9 @@ if (
             process.env.JWT_SECRET
         );
 
-        if (decoded.role === "user") {
-            loggedInUserId = decoded.id;
-        }
+        if (decoded && decoded.id) {
+        loggedInUserId = decoded.id;
+    }
 
     } catch (error) {
 
