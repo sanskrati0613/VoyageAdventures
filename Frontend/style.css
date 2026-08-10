@@ -660,6 +660,148 @@ body {
     transform: translateY(0);
 }
 
+
+.my-bookings-page {
+    min-height: 100vh;
+    padding: 80px 20px;
+    background: #f5f8f8;
+}
+
+.my-bookings-card,
+.booking-result-card {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto 25px;
+    background: white;
+    padding: 35px;
+    border-radius: 18px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.06);
+}
+
+.my-bookings-card h1 {
+    margin-bottom: 10px;
+}
+
+.my-bookings-card > p {
+    color: #68788a;
+    margin-bottom: 30px;
+}
+
+.my-bookings-card .form-group {
+    margin-bottom: 20px;
+}
+
+.my-bookings-card input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d5dfdf;
+    border-radius: 8px;
+    font-size: 15px;
+}
+
+.my-bookings-card button {
+    width: 100%;
+    border: none;
+    background: #0b9f91;
+    color: white;
+    padding: 13px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+#lookup-error {
+    color: #d9534f;
+    min-height: 20px;
+}
+
+.booking-result-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.booking-result-header span {
+    color: #68788a;
+}
+
+.booking-result-header h2 {
+    color: #0b9f91;
+    margin-top: 5px;
+}
+
+.booking-status {
+    padding: 8px 14px;
+    border-radius: 20px;
+    background: #e7f7f5;
+    color: #0b9f91 !important;
+    font-weight: 600;
+}
+
+.booking-result-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.booking-result-grid p {
+    color: #617285;
+}
+
+.booking-result-grid strong,
+.booking-request strong {
+    display: block;
+    color: #18324a;
+    margin-bottom: 6px;
+}
+
+.booking-request {
+    margin-top: 30px;
+    padding-top: 25px;
+    border-top: 1px solid #e5eeee;
+}
+
+.booking-request p {
+    color: #617285;
+}
+
+#view-my-booking {
+    border: none;
+    background: #0b9f91;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+#view-my-booking:hover {
+    background: #07877b;
+    transform: translateY(-1px);
+}
+
+.booking-success-actions {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+}
+
+@media (max-width: 600px) {
+    .booking-result-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .booking-result-header {
+        align-items: flex-start;
+        gap: 15px;
+        flex-direction: column;
+    }
+}
+
 /* --- Media Queries for Responsiveness --- */
 @media (min-width: 768px) {
     .nav-links {

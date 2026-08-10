@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Admin Login | Voyage Adventures</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <main class="login-page">
+
+        <div class="login-card">
+
+            <h1>Voyage Adventures</h1>
+
+            <p class="login-subtitle">
+                Admin Dashboard
+            </p>
+
+            <form id="admin-login-form">
+
+                <div class="login-field">
+                    <label for="admin-username">
+                        Username
+                    </label>
+
+                    <input
+                        type="text"
+                        id="admin-username"
+                        placeholder="Enter username"
+                        required>
+                </div>
+
+                <div class="login-field">
+                    <label for="admin-password">
+                        Password
+                    </label>
+
+                    <input
+                        type="password"
+                        id="admin-password"
+                        placeholder="Enter password"
+                        required>
+                </div>
+
+                <p
+                    id="login-error"
+                    class="login-error">
+                </p>
+
+                <button type="submit">
+                    Login
+                </button>
+
+            </form>
+
+        </div>
+
+    </main>
+
+    <script src="admin-login.js"></script>
+
+</body>
+</html>

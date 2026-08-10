@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Voyage Adventures - Admin</title>
+
+    <link rel="stylesheet" href="admin.css">
+</head>
+
+<body>
+
+    <header class="admin-header">
+        <div>
+            <h1>Voyage Adventures</h1>
+            <span>Booking Management</span>
+        </div>
+        <button id="logout-button">
+            Logout
+        </button>
+    </header>
+
+    <main class="admin-container">
+
+        <div class="admin-title">
+            <h2>Bookings</h2>
+            <button id="refresh-bookings">
+                Refresh
+            </button>
+        </div>
+
+        <div class="dashboard-stats">
+
+            <div class="stat-card">
+                <span>Total Bookings</span>
+                <strong id="total-bookings">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Pending</span>
+                <strong id="pending-bookings">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Confirmed</span>
+                <strong id="confirmed-bookings">0</strong>
+            </div>
+
+            <div class="stat-card">
+                <span>Cancelled</span>
+                <strong id="cancelled-bookings">0</strong>
+            </div>
+
+        </div>
+
+        <div class="booking-filters">
+
+            <input
+                type="text"
+                id="booking-search"
+                placeholder="Search by name, email or booking reference">
+
+            <select id="status-filter">
+                <option value="all">All Statuses</option>
+                <option value="Pending">Pending</option>
+                <option value="Confirmed">Confirmed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+
+            <select id="destination-filter">
+                <option value="all">All Destinations</option>
+            </select>
+
+            <button id="clear-filters">
+                Clear Filters
+            </button>
+
+        </div>
+
+        <div id="bookings-container">
+            <p>Loading bookings...</p>
+        </div>
+
+        <div id="booking-modal" class="booking-modal">
+            <div class="booking-modal-content">
+
+                <button id="close-booking-modal" class="close-modal">
+                    ×
+                </button>
+
+                <h2>Booking Details</h2>
+
+                <div id="booking-details"></div>
+
+            </div>
+        </div>
+
+
+        <section class="admin-section">
+
+        <div class="section-header">
+
+            <div>
+                <h2>Destinations</h2>
+                <p>Manage destinations available on Voyage Adventures.</p>
+            </div>
+
+            <button
+                id="add-destination-button"
+                class="primary-button">
+                + Add Destination
+            </button>
+
+        </div>
+
+        <div
+            id="destinations-container"
+            class="destinations-container">
+            <p>Loading destinations...</p>
+        </div>
+
+    </section>
+
+    <section class="admin-section">
+
+    <div class="section-header">
+
+        <div>
+            <h2>Contact Messages</h2>
+
+            <p>
+                Messages received from Voyage Adventures visitors.
+            </p>
+        </div>
+
+        <button
+            id="refresh-contact-messages"
+            class="primary-button">
+
+            Refresh
+
+        </button>
+
+    </div>
+
+
+    <div
+        id="contact-messages-container"
+        class="contact-messages-container">
+
+        <p>
+            Loading messages...
+        </p>
+
+    </div>
+
+</section>
+
+</main>
+
+
+    <div
+    id="destination-modal"
+    class="destination-modal">
+
+        <div class="destination-modal-content">
+
+            <button
+                type="button"
+                id="close-destination-modal"
+                class="close-modal">
+                ×
+            </button>
+
+            <h2 id="destination-modal-title">
+                Add Destination
+            </h2>
+
+            <form id="destination-form">
+
+                <input
+                    type="hidden"
+                    id="destination-id">
+
+                <div class="form-group">
+                    <label for="destination-name">
+                        Destination Name
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination-name"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination-location">
+                        Location
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination-location"
+                        placeholder="e.g. Goa, India"
+                        required>
+                </div>
+
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label for="destination-price">
+                            Price
+                        </label>
+
+                        <input
+                            type="number"
+                            id="destination-price"
+                            min="0"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="destination-rating">
+                            Rating
+                        </label>
+
+                        <input
+                            type="number"
+                            id="destination-rating"
+                            min="0"
+                            max="5"
+                            step="0.1"
+                            required>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <label for="destination-duration">
+                        Duration
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination-duration"
+                        placeholder="e.g. 5 Days / 4 Nights"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination-best-time">
+                        Best Time to Visit
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination-best-time"
+                        placeholder="e.g. October - March"
+                        required>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination-type">
+                        Type
+                    </label>
+
+                    <input
+                        type="text"
+                        id="destination-type"
+                        placeholder="e.g. Beach, Adventure, Heritage"
+                        required>
+                </div>
+
+                <div class="form-group">
+
+    <label for="destination-image">
+        Destination Image
+    </label>
+
+    <input
+        type="file"
+        id="destination-image"
+        accept="image/jpeg,image/png,image/webp">
+
+    <div
+        id="destination-image-preview"
+        class="destination-image-preview">
+
+        <img
+            id="destination-image-preview-img"
+            src=""
+            alt="Destination preview">
+
+    </div>
+
+</div>
+
+                <div class="form-group">
+                    <label for="destination-description">
+                        Description
+                    </label>
+
+                    <textarea
+                        id="destination-description"
+                        rows="4"
+                        required>
+                    </textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="destination-highlights">
+                        Highlights
+                    </label>
+
+                    <textarea
+                        id="destination-highlights"
+                        rows="4"
+                        placeholder="Beach, Water Sports, Nightlife">
+                    </textarea>
+
+                    <small>
+                        Separate highlights with commas.
+                    </small>
+                </div>
+
+                <button
+                    type="submit"
+                    class="primary-button">
+                    Save Destination
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Departure Modal -->
+
+<div
+    id="departure-modal"
+    class="destination-modal">
+
+    <div
+        class="destination-modal-content">
+
+        <button
+            type="button"
+            id="close-departure-modal"
+            class="close-modal">
+
+            ×
+
+        </button>
+
+
+        <h2 id="departure-modal-title">
+            Add Departure
+        </h2>
+
+
+        <form id="departure-form">
+
+            <input
+                type="hidden"
+                id="departure-destination-id">
+
+            <input
+                type="hidden"
+                id="departure-id">
+
+
+            <div class="form-group">
+
+                <label for="departure-start-date">
+                    Start Date
+                </label>
+
+                <input
+                    type="date"
+                    id="departure-start-date"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="departure-end-date">
+                    End Date
+                </label>
+
+                <input
+                    type="date"
+                    id="departure-end-date"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="departure-total-seats">
+                    Total Seats
+                </label>
+
+                <input
+                    type="number"
+                    id="departure-total-seats"
+                    min="1"
+                    required>
+
+                <small>
+                    Booked and available seats are updated automatically.
+                </small>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="primary-button">
+
+                Save Departure
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+    <script src="admin.js"></script>
+
+</body>
+</html>
