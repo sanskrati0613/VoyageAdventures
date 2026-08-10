@@ -21,6 +21,8 @@ const contactRoutes =
 const testimonialRoutes =
     require('./routes/testimonialRoutes');
 
+const userRoutes = require("./routes/userRoutes");
+
 const app = express();
 
 const PORT = process.env.PORT || 5000;
@@ -82,6 +84,8 @@ app.use(
     '/api/testimonials',
     testimonialRoutes
 );
+
+app.use("/api/users", userRoutes);
 
 // -----------------------------
 // Health Check
