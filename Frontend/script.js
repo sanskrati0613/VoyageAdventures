@@ -1525,6 +1525,94 @@ if (loginForm) {
 }
 
 // =========================================
+// USER REGISTRATION
+// =========================================
+
+const registerForm = document.getElementById("register-form");
+
+if (registerForm) {
+
+    registerForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById("register-name").value.trim();
+
+        const username =
+            document.getElementById("register-username").value.trim();
+
+        const email =
+            document.getElementById("register-email").value.trim();
+
+        const phone =
+            document.getElementById("register-phone").value.trim();
+
+        const password =
+            document.getElementById("register-password").value;
+
+        const confirmPassword =
+            document.getElementById("register-confirm-password").value;
+
+        const registerError =
+            document.getElementById("register-error");
+
+        registerError.textContent = "";
+
+        try {
+
+            const response = await fetch(
+                `${API_BASE_URL}/api/users/register`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        name,
+                        username,
+                        email,
+                        phone,
+                        password,
+                        confirmPassword
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Unable to create account."
+                );
+            }
+
+            // Registration successful
+            alert("Account created successfully.");
+
+            // Clear form
+            registerForm.reset();
+
+            // Open login
+            openAuthModal("login");
+
+        } catch (error) {
+
+            console.error(
+                "Registration failed:",
+                error
+            );
+
+            registerError.textContent =
+                error.message ||
+                "Unable to create account.";
+        }
+    });
+}
+
+// =========================================
 // PROFILE UI
 // =========================================
 
