@@ -107,7 +107,6 @@ if (
         let bookingDeparture;
 console.log("BOOKING TRANSACTION STARTED");
 
-await session.withTransaction(async () => {
         await session.withTransaction(async () => {
 
             // -------------------------------------------------
@@ -244,12 +243,10 @@ console.log("Booking saved");
 
         });
 console.log("BOOKING TRANSACTION COMPLETED");
-
-       // =====================================================
+// =====================================================
 // EMAIL
 // =====================================================
 
-// Send email without making the customer wait for it
 sendBookingEmail(
     booking,
     'created'
@@ -267,21 +264,21 @@ sendBookingEmail(
     });
 
 
-        // =====================================================
-        // SUCCESS RESPONSE
-        // =====================================================
+// =====================================================
+// SUCCESS RESPONSE
+// =====================================================
 
-        res.status(201).json({
+res.status(201).json({
 
-            message:
-                'Booking created successfully',
+    message:
+        'Booking created successfully',
 
-            booking,
+    booking,
 
-            departure:
-                bookingDeparture
+    departure:
+        bookingDeparture
 
-        });
+});
 
 
     } catch (error) {
