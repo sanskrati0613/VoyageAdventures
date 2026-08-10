@@ -14,49 +14,22 @@
 
     <main class="my-bookings-page">
 
-        <div class="my-bookings-card">
+    <div class="my-bookings-card">
 
-            <h1>My Bookings</h1>
+        <h1>My Bookings</h1>
 
-            <p>
-                Enter your booking reference and email
-                to view your trip details.
-            </p>
-
-            <form id="booking-lookup-form">
-
-                <div class="form-group">
-                    <label for="booking-reference">
-                        Booking Reference
-                    </label>
-
-                    <input type="text" id="booking-reference" placeholder="e.g. VA732164" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="booking-email">
-                        Email
-                    </label>
-
-                    <input type="email" id="booking-email" placeholder="you@example.com" required>
-                </div>
-
-                <p id="lookup-error"></p>
-
-                <button type="submit">
-                    Find My Booking
-                </button>
-
-            </form>
-
-        </div>
+        <p id="bookings-message">
+            Your booked trips will appear here.
+        </p>
 
         <div id="booking-result" class="booking-result">
         </div>
 
-    </main>
+    </div>
 
-    <script src="my-bookings.js"></script>
+</main>
+
+<script src="my-bookings.js"></script>
 
 </body>
 

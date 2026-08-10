@@ -978,12 +978,20 @@ bookingForm.addEventListener("submit", async (event) => {
   confirmBookingButton.disabled = true;
   confirmBookingButton.textContent = "Confirming...";
 
+  const userToken = localStorage.getItem("userToken");
+
+const headers = {
+    "Content-Type": "application/json",
+};
+
+if (userToken) {
+    headers.Authorization = `Bearer ${userToken}`;
+}
+
   try {
     const response = await fetch(`${API_BASE_URL}/api/bookings`, {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers,
       body: JSON.stringify(bookingData),
     });
 
@@ -1307,6 +1315,420 @@ function setupTestimonialHighlight() {
     );
 
     updateHighlight();
+}
+
+// =========================================
+// PROFILE MENU
+// =========================================
+
+const profileButton = document.getElementById("profile-button");
+const profileDropdown = document.getElementById("profile-dropdown");
+
+if (profileButton && profileDropdown) {
+
+    profileButton.addEventListener("click", (event) => {
+        event.stopPropagation();
+        profileDropdown.classList.toggle("show");
+    });
+
+    document.addEventListener("click", (event) => {
+        if (
+            !profileDropdown.contains(event.target) &&
+            !profileButton.contains(event.target)
+        ) {
+            profileDropdown.classList.remove("show");
+        }
+    });
+}
+
+// =========================================
+// AUTH MODAL
+// =========================================
+
+const authModal = document.getElementById("auth-modal");
+const authModalOverlay = document.querySelector(".auth-modal-overlay");
+const closeAuthModal = document.getElementById("close-auth-modal");
+
+const loginView = document.getElementById("login-view");
+const registerView = document.getElementById("register-view");
+
+const loginOption = document.getElementById("login-option");
+const registerOption = document.getElementById("register-option");
+
+const showRegister = document.getElementById("show-register");
+const showLogin = document.getElementById("show-login");
+
+function openAuthModal(view = "login") {
+
+    if (!authModal) return;
+
+    authModal.classList.add("show");
+
+    if (view === "register") {
+        loginView.style.display = "none";
+        registerView.style.display = "block";
+    } else {
+        loginView.style.display = "block";
+        registerView.style.display = "none";
+    }
+}
+
+function closeAuth() {
+
+    if (!authModal) return;
+
+    authModal.classList.remove("show");
+}
+
+if (loginOption) {
+    loginOption.addEventListener("click", () => {
+        openAuthModal("login");
+    });
+}
+
+if (registerOption) {
+    registerOption.addEventListener("click", () => {
+        openAuthModal("register");
+    });
+}
+
+if (showRegister) {
+    showRegister.addEventListener("click", () => {
+        openAuthModal("register");
+    });
+}
+
+if (showLogin) {
+    showLogin.addEventListener("click", () => {
+        openAuthModal("login");
+    });
+}
+
+if (closeAuth) {
+    closeAuthModal.addEventListener("click", closeAuth);
+}
+
+if (authModalOverlay) {
+    authModalOverlay.addEventListener("click", closeAuth);
+}
+
+document.addEventListener("keydown", (event) => {
+
+    if (
+        event.key === "Escape" &&
+        authModal &&
+        authModal.classList.contains("show")
+    ) {
+        closeAuth();
+    }
+
+});
+
+// =========================================
+// USER / ADMIN LOGIN
+// =========================================
+
+const loginForm = document.getElementById("login-form");
+
+if (loginForm) {
+
+    loginForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const username =
+            document.getElementById("login-username").value.trim();
+
+        const password =
+            document.getElementById("login-password").value;
+
+        const loginError =
+            document.getElementById("login-error");
+
+        loginError.textContent = "";
+
+        try {
+
+            const response = await fetch(
+                `${API_BASE_URL}/api/users/login`,
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        username,
+                        password
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+                throw new Error(
+                    data.message || "Login failed."
+                );
+            }
+
+            // =========================================
+            // ADMIN
+            // =========================================
+
+            if (data.role === "admin") {
+
+                localStorage.setItem(
+                    "adminToken",
+                    data.token
+                );
+
+                window.location.href = "admin.html";
+
+                return;
+            }
+
+            // =========================================
+            // NORMAL USER
+            // =========================================
+
+            if (data.role === "user") {
+
+                localStorage.setItem(
+                    "userToken",
+                    data.token
+                );
+
+                localStorage.setItem(
+                    "userData",
+                    JSON.stringify(data.user)
+                );
+
+                closeAuth();
+
+                updateProfileUI();
+
+                return;
+            }
+
+            throw new Error("Unknown account type.");
+
+        } catch (error) {
+
+            console.error("Login failed:", error);
+
+            loginError.textContent =
+                error.message || "Unable to login.";
+        }
+    });
+}
+
+// =========================================
+// PROFILE UI
+// =========================================
+
+function updateProfileUI() {
+
+    const profileButton =
+        document.getElementById("profile-button");
+
+    const profileDropdown =
+        document.getElementById("profile-dropdown");
+
+    if (!profileButton || !profileDropdown) {
+        return;
+    }
+
+    const userToken =
+        localStorage.getItem("userToken");
+
+    const userData =
+        localStorage.getItem("userData");
+
+    // =========================================
+    // LOGGED OUT
+    // =========================================
+
+    if (!userToken || !userData) {
+
+        profileButton.innerHTML = `
+            <span class="profile-icon">👤</span>
+            <span>Profile</span>
+        `;
+
+        profileDropdown.innerHTML = `
+            <button id="login-option" type="button">
+                Login
+            </button>
+
+            <button id="register-option" type="button">
+                Create Account
+            </button>
+        `;
+
+        attachProfileActions();
+
+        return;
+    }
+
+    // =========================================
+    // LOGGED IN USER
+    // =========================================
+
+    const user = JSON.parse(userData);
+
+    profileButton.innerHTML = `
+        <span class="profile-icon">👤</span>
+        <span>${user.username}</span>
+    `;
+
+    profileDropdown.innerHTML = `
+        <button id="profile-option" type="button">
+            My Profile
+        </button>
+
+        <button id="my-bookings-option" type="button">
+            My Bookings
+        </button>
+
+        <button id="logout-option" type="button">
+            Logout
+        </button>
+    `;
+
+    attachLoggedInProfileActions();
+}
+
+function attachProfileActions() {
+
+    const loginOption =
+        document.getElementById("login-option");
+
+    const registerOption =
+        document.getElementById("register-option");
+
+    if (loginOption) {
+        loginOption.addEventListener("click", () => {
+            openAuthModal("login");
+        });
+    }
+
+    if (registerOption) {
+        registerOption.addEventListener("click", () => {
+            openAuthModal("register");
+        });
+    }
+}
+
+function attachLoggedInProfileActions() {
+
+    const profileOption =
+        document.getElementById("profile-option");
+
+    const bookingsOption =
+        document.getElementById("my-bookings-option");
+
+    const logoutOption =
+        document.getElementById("logout-option");
+
+    if (profileOption) {
+
+    profileOption.addEventListener("click", () => {
+
+        profileDropdown.classList.remove("show");
+
+        openProfileModal();
+
+    });
+
+}
+
+    if (bookingsOption) {
+
+        bookingsOption.addEventListener("click", () => {
+
+            window.location.href = "my-bookings.html";
+
+        });
+    }
+
+    if (logoutOption) {
+
+        logoutOption.addEventListener("click", () => {
+
+            localStorage.removeItem("userToken");
+            localStorage.removeItem("userData");
+
+            updateProfileUI();
+
+            profileDropdown.classList.remove("show");
+        });
+    }
+}
+
+updateProfileUI();
+
+// =========================================
+// USER PROFILE MODAL
+// =========================================
+
+const profileModal =
+    document.getElementById("profile-modal");
+
+const closeProfileModal =
+    document.getElementById("close-profile-modal");
+
+const profileModalOverlay =
+    document.querySelector(".profile-modal-overlay");
+
+function openProfileModal() {
+
+    const userData =
+        localStorage.getItem("userData");
+
+    if (!userData) {
+        return;
+    }
+
+    const user = JSON.parse(userData);
+
+    document.getElementById("profile-name").textContent =
+        user.name || "Not available";
+
+    document.getElementById("profile-username").textContent =
+        user.username || "Not available";
+
+    document.getElementById("profile-email").textContent =
+        user.email || "Not available";
+
+    document.getElementById("profile-phone").textContent =
+        user.phone || "Not available";
+
+    profileModal.classList.add("show");
+}
+
+function closeProfileModalWindow() {
+
+    if (profileModal) {
+        profileModal.classList.remove("show");
+    }
+}
+
+if (closeProfileModal) {
+
+    closeProfileModal.addEventListener(
+        "click",
+        closeProfileModalWindow
+    );
+}
+
+if (profileModalOverlay) {
+
+    profileModalOverlay.addEventListener(
+        "click",
+        closeProfileModalWindow
+    );
 }
 
 document.addEventListener('DOMContentLoaded', () => {

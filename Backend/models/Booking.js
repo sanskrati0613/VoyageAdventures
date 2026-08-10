@@ -79,7 +79,13 @@ const bookingSchema = new mongoose.Schema(
     departureId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true
-    },
+},
+
+userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: false
+},
 
   },
   {

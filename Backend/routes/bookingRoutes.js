@@ -177,7 +177,7 @@ if (
             // -------------------------------------------------
             // Create booking
             // -------------------------------------------------
-
+console.log("USER ID BEFORE BOOKING:", loggedInUserId);
             booking =
                 new Booking({
 
