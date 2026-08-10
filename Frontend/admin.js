@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:5000';
+const API_BASE_URL = 'https://voyageadventures-backend.onrender.com';
 const adminToken = localStorage.getItem("adminToken");
 
 if (!adminToken) {
@@ -55,7 +55,7 @@ async function loadContactMessages() {
   contactMessagesContainer.innerHTML = "<p>Loading messages...</p>";
 
   try {
-    const response = await adminFetch("http://localhost:5000/api/contact");
+    const response = await adminFetch(`${API_BASE_URL}/api/contact`);
 
     if (!response.ok) {
       throw new Error("Failed to load contact messages");
@@ -221,7 +221,7 @@ function attachContactMessageEvents() {
 async function updateContactMessageStatus(id, status) {
   try {
     const response = await adminFetch(
-      `http://localhost:5000/api/contact/${id}/status`,
+      `${API_BASE_URL}/api/contact/${id}/status`,
       {
         method: "PUT",
 
@@ -258,7 +258,7 @@ async function deleteContactMessage(id) {
 
   try {
     const response = await adminFetch(
-      `http://localhost:5000/api/contact/${id}`,
+      `${API_BASE_URL}/api/contact/${id}`,
       {
         method: "DELETE",
       },
@@ -399,8 +399,8 @@ departureForm.addEventListener("submit", async (event) => {
     const isEditing = Boolean(departureIdValue);
 
     const url = isEditing
-      ? `http://localhost:5000/api/destinations/${destinationId}/departures/${departureIdValue}`
-      : `http://localhost:5000/api/destinations/${destinationId}/departures`;
+      ? `${API_BASE_URL}/api/destinations/${destinationId}/departures/${departureIdValue}`
+      : `${API_BASE_URL}/api/destinations/${destinationId}/departures`;
 
     const response = await adminFetch(url, {
       method: isEditing ? "PUT" : "POST",
@@ -459,7 +459,7 @@ async function deleteDeparture(destinationId, departureId) {
 
   try {
     const response = await adminFetch(
-      `http://localhost:5000/api/destinations/${destinationId}/departures/${departureId}`,
+      `${API_BASE_URL}/api/destinations/${destinationId}/departures/${departureId}`,
 
       {
         method: "DELETE",
@@ -554,7 +554,7 @@ let allBookings = [];
 
 async function loadDestinations() {
   try {
-    const response = await fetch("http://localhost:5000/api/destinations");
+    const response = await fetch(`${API_BASE_URL}/api/destinations`);
 
     if (!response.ok) {
       throw new Error("Failed to load destinations");
@@ -842,7 +842,7 @@ function attachDestinationEvents() {
 async function editDestination(id) {
   try {
     const response = await adminFetch(
-      `http://localhost:5000/api/destinations/${id}`,
+      `${API_BASE_URL}/api/destinations/${id}`,
     );
 
     if (!response.ok) {
@@ -901,7 +901,7 @@ async function deleteDestination(id) {
 
   try {
     const response = await adminFetch(
-      `http://localhost:5000/api/destinations/${id}`,
+      `${API_BASE_URL}/api/destinations/${id}`,
       {
         method: "DELETE",
       },
@@ -1009,8 +1009,8 @@ destinationForm.addEventListener("submit", async (event) => {
   }
 
   const url = isEditing
-    ? `http://localhost:5000/api/destinations/${id}`
-    : `http://localhost:5000/api/destinations`;
+    ? `${API_BASE_URL}/api/destinations/${id}`
+    : `${API_BASE_URL}/api/destinations`;
 
   try {
     const response = await adminFetch(url, {
@@ -1049,7 +1049,7 @@ async function loadBookings() {
   bookingsContainer.innerHTML = "<p>Loading bookings...</p>";
 
   try {
-    const response = await adminFetch("http://localhost:5000/api/bookings");
+    const response = await adminFetch(`${API_BASE_URL}/api/bookings`);
 
     if (!response.ok) {
       throw new Error("Failed to load bookings");
@@ -1160,7 +1160,7 @@ function getDestinationImageUrl(image) {
 
   // New images uploaded to backend
   if (image.startsWith("/uploads/")) {
-    return `http://localhost:5000${image}`;
+    return `${API_BASE_URL}${image}`;
   }
 
   // Existing frontend assets
@@ -1240,7 +1240,7 @@ async function cancelBooking(id) {
 
   try {
     const response = await adminFetch(
-      `http://localhost:5000/api/bookings/${id}/cancel`,
+      `${API_BASE_URL}/api/bookings/${id}/cancel`,
       {
         method: "PUT",
       },
@@ -1267,7 +1267,7 @@ async function cancelBooking(id) {
 async function updateBookingStatus(id, status) {
   try {
     const response = await adminFetch(
-      `http://localhost:5000/api/bookings/${id}/status`,
+      `${API_BASE_URL}/api/bookings/${id}/status`,
       {
         method: "PUT",
         headers: {
@@ -1291,7 +1291,7 @@ async function updateBookingStatus(id, status) {
 async function viewBookingDetails(id) {
   try {
     const response = await adminFetch(
-      `http://localhost:5000/api/bookings/${id}`,
+      `${API_BASE_URL}/api/bookings/${id}`,
     );
 
     if (!response.ok) {

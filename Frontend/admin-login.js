@@ -12,7 +12,7 @@ loginForm.addEventListener("submit", async (event) => {
   loginError.textContent = "";
 
   try {
-    const response = await fetch("http://localhost:5000/api/admin/login", {
+    const response = await fetch("https://voyageadventures-backend.onrender.com/api/admin/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

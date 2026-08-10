@@ -4,6 +4,8 @@ const lookupError = document.getElementById("lookup-error");
 
 const bookingResult = document.getElementById("booking-result");
 
+const API_BASE_URL = 'https://voyageadventures-backend.onrender.com';
+
 lookupForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -21,7 +23,7 @@ lookupForm.addEventListener("submit", async (event) => {
     .toLowerCase();
 
   try {
-    const response = await fetch("http://localhost:5000/api/bookings/lookup", {
+    const response = await fetch(`${API_BASE_URL}/api/bookings/lookup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
