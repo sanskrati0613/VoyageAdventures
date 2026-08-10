@@ -1,54 +1,44 @@
-const lookupForm =
-    document.getElementById('booking-lookup-form');
+const lookupForm = document.getElementById("booking-lookup-form");
 
-const lookupError =
-    document.getElementById('lookup-error');
+const lookupError = document.getElementById("lookup-error");
 
-const bookingResult =
-    document.getElementById('booking-result');
+const bookingResult = document.getElementById("booking-result");
 
-lookupForm.addEventListener('submit', async event => {
-    event.preventDefault();
+lookupForm.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-    lookupError.textContent = '';
-    bookingResult.innerHTML = '';
+  lookupError.textContent = "";
+  bookingResult.innerHTML = "";
 
-    const bookingReference =
-        document.getElementById('booking-reference')
-            .value
-            .trim()
-            .toUpperCase();
+  const bookingReference = document
+    .getElementById("booking-reference")
+    .value.trim()
+    .toUpperCase();
 
-    const email =
-        document.getElementById('booking-email')
-            .value
-            .trim()
-            .toLowerCase();
+  const email = document
+    .getElementById("booking-email")
+    .value.trim()
+    .toLowerCase();
 
-    try {
-        const response = await fetch(
-            'http://localhost:5000/api/bookings/lookup',
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    bookingReference,
-                    email
-                })
-            }
-        );
+  try {
+    const response = await fetch("http://localhost:5000/api/bookings/lookup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        bookingReference,
+        email,
+      }),
+    });
 
-        const data = await response.json();
+    const data = await response.json();
 
-        if (!response.ok) {
-            throw new Error(
-                data.message || 'Booking not found'
-            );
-        }
+    if (!response.ok) {
+      throw new Error(data.message || "Booking not found");
+    }
 
-        bookingResult.innerHTML = `
+    bookingResult.innerHTML = `
             <div class="booking-result-card">
 
                 <div class="booking-result-header">
@@ -91,7 +81,7 @@ lookupForm.addEventListener('submit', async event => {
 
                     <p>
                         <strong>Total Price</strong>
-                        ₹${data.totalPrice.toLocaleString('en-IN')}
+                        ₹${data.totalPrice.toLocaleString("en-IN")}
                     </p>
 
                 </div>
@@ -101,26 +91,22 @@ lookupForm.addEventListener('submit', async event => {
                     <strong>Special Request</strong>
 
                     <p>
-                        ${data.specialRequest || 'None'}
+                        ${data.specialRequest || "None"}
                     </p>
 
                 </div>
 
             </div>
         `;
+  } catch (error) {
+    console.error("Booking lookup failed:", error);
 
-    } catch (error) {
-        console.error('Booking lookup failed:', error);
-
-        lookupError.textContent =
-            error.message || 'Unable to find booking.';
-    }
+    lookupError.textContent = error.message || "Unable to find booking.";
+  }
 });
 
-const latestBookingReference =
-    sessionStorage.getItem('latestBookingReference');
+const latestBookingReference = sessionStorage.getItem("latestBookingReference");
 
 if (latestBookingReference) {
-    document.getElementById('booking-reference').value =
-        latestBookingReference;
+  document.getElementById("booking-reference").value = latestBookingReference;
 }

@@ -18,6 +18,8 @@ const adminRoutes =
 const contactRoutes =
     require('./routes/contactRoutes');
 
+const testimonialRoutes =
+    require('./routes/testimonialRoutes');
 
 const app = express();
 
@@ -76,6 +78,10 @@ app.use(
     contactRoutes
 );
 
+app.use(
+    '/api/testimonials',
+    testimonialRoutes
+);
 
 // -----------------------------
 // Health Check

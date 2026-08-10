@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js" defer></script>
 </head>
+
 <body class="antialiased">
 
     <!-- Navigation Bar -->
@@ -33,7 +35,8 @@
 
             <!-- Mobile Menu Button -->
             <button id="mobile-menu-button" class="mobile-menu-button">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-gray-800">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" class="text-gray-800">
                     <path d="M4 6h16M4 12h16m-7 6h7"></path>
                 </svg>
             </button>
@@ -49,7 +52,7 @@
     </header>
 
     <main>
-<!-- =========================================
+        <!-- =========================================
      HERO SECTION
 ========================================= -->
 
@@ -62,33 +65,23 @@
                 <div class="hero-slides">
 
                     <div class="hero-slide active">
-                        <img
-                            src="assets/KASHMIR.jpg"
-                            alt="Beautiful Kashmir mountains">
+                        <img src="assets/KASHMIR.jpg" alt="Beautiful Kashmir mountains">
                     </div>
 
                     <div class="hero-slide">
-                        <img
-                            src="assets/varanasi.jpg"
-                            alt="Varanasi ghats">
+                        <img src="assets/varanasi.jpg" alt="Varanasi ghats">
                     </div>
 
                     <div class="hero-slide">
-                        <img
-                            src="assets/sunset.jpg"
-                            alt="Beautiful sunset destination">
+                        <img src="assets/sunset.jpg" alt="Beautiful sunset destination">
                     </div>
 
                     <div class="hero-slide">
-                        <img
-                            src="assets/adventure.jpg"
-                            alt="Adventure travel experience">
+                        <img src="assets/adventure.jpg" alt="Adventure travel experience">
                     </div>
 
                     <div class="hero-slide">
-                        <img
-                            src="assets/mountain.jpg"
-                            alt="Mountain landscape">
+                        <img src="assets/mountain.jpg" alt="Mountain landscape">
                     </div>
 
                 </div>
@@ -117,9 +110,7 @@
                         designed around you.
                     </p>
 
-                    <a
-                        href="#destinations"
-                        class="hero-cta">
+                    <a href="#destinations" class="hero-cta">
 
                         Explore Destinations
 
@@ -133,54 +124,31 @@
 
                 <!-- Slide Controls -->
 
-                <button
-                    class="hero-control hero-prev"
-                    id="hero-prev"
-                    aria-label="Previous destination">
+                <button class="hero-control hero-prev" id="hero-prev" aria-label="Previous destination">
                     ←
                 </button>
 
-                <button
-                    class="hero-control hero-next"
-                    id="hero-next"
-                    aria-label="Next destination">
+                <button class="hero-control hero-next" id="hero-next" aria-label="Next destination">
                     →
                 </button>
 
                 <!-- Slide Indicators -->
 
-                <div
-                    class="hero-indicators"
-                    id="hero-indicators">
+                <div class="hero-indicators" id="hero-indicators">
 
-                    <button
-                        class="hero-dot active"
-                        data-slide="0"
-                        aria-label="Go to slide 1">
+                    <button class="hero-dot active" data-slide="0" aria-label="Go to slide 1">
                     </button>
 
-                    <button
-                        class="hero-dot"
-                        data-slide="1"
-                        aria-label="Go to slide 2">
+                    <button class="hero-dot" data-slide="1" aria-label="Go to slide 2">
                     </button>
 
-                    <button
-                        class="hero-dot"
-                        data-slide="2"
-                        aria-label="Go to slide 3">
+                    <button class="hero-dot" data-slide="2" aria-label="Go to slide 3">
                     </button>
 
-                    <button
-                        class="hero-dot"
-                        data-slide="3"
-                        aria-label="Go to slide 4">
+                    <button class="hero-dot" data-slide="3" aria-label="Go to slide 4">
                     </button>
 
-                    <button
-                        class="hero-dot"
-                        data-slide="4"
-                        aria-label="Go to slide 5">
+                    <button class="hero-dot" data-slide="4" aria-label="Go to slide 5">
                     </button>
 
                 </div>
@@ -228,12 +196,8 @@
 
                         <span class="search-icon">⌕</span>
 
-                        <input
-                            type="text"
-                            id="destination-search"
-                            placeholder="Search destinations..."
-                            autocomplete="off"
-                        >
+                        <input type="text" id="destination-search" placeholder="Search destinations..."
+                            autocomplete="off">
 
                         <button id="clear-search" class="clear-search">
                             ×
@@ -246,50 +210,35 @@
                 <!-- Category Filters -->
                 <div class="destination-filters">
 
-                    <button
-                        class="filter-button active"
-                        data-category="all">
+                    <button class="filter-button active" data-category="all">
                         All
                     </button>
 
-                    <button
-                        class="filter-button"
-                        data-category="mountain">
+                    <button class="filter-button" data-category="mountain">
                         🏔️ Mountains
                     </button>
 
-                    <button
-                        class="filter-button"
-                        data-category="culture">
+                    <button class="filter-button" data-category="culture">
                         🕌 Culture
                     </button>
 
-                    <button
-                        class="filter-button"
-                        data-category="beach">
+                    <button class="filter-button" data-category="beach">
                         🏖️ Beach
                     </button>
 
-                    <button
-                        class="filter-button"
-                        data-category="adventure">
+                    <button class="filter-button" data-category="adventure">
                         🧗 Adventure
                     </button>
 
                 </div>
 
                 <!-- Destination Cards -->
-                <div
-                    class="destinations-grid"
-                    id="destinations-grid">
+                <div class="destinations-grid" id="destinations-grid">
 
                 </div>
 
                 <!-- No Results -->
-                <div
-                    id="no-destinations"
-                    class="no-destinations"
-                    hidden>
+                <div id="no-destinations" class="no-destinations" hidden>
 
                     <div class="no-destinations-icon">
                         🧭
@@ -312,63 +261,9 @@
         <section id="testimonials" class="section-padding" style="background-color: white;">
             <div class="container text-center fade-in">
                 <h2 class="section-title">What Our Travelers Say</h2>
-                <p class="section-subtitle">Don't just take our word for it. Read what our happy customers have to say about their adventures with us.</p>
+                <p class="section-subtitle">Don't just take our word for it. Read what our happy customers have to say
+                    about their adventures with us.</p>
                 <div class="testimonials-grid" id="testimonials-container">
-                    <!-- Testimonial 1 -->
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"The trip was perfectly planned and executed. We saw so much and the guides were incredibly knowledgeable. I can't wait to book my next trip!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60x60/d1d5db/374151?text=A" alt="Traveler 1" class="testimonial-author-img">
-                            <div>
-                                <p class="testimonial-author-name">Alex Johnson</p>
-                                <p class="testimonial-author-role">Explorer</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonial 2 -->
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"Absolutely incredible experience! The views were breathtaking and the entire journey was seamless. Highly recommend Wanderlust to everyone."</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60x60/d1d5db/374151?text=B" alt="Traveler 2" class="testimonial-author-img">
-                            <div>
-                                <p class="testimonial-author-name">Maria Rodriguez</p>
-                                <p class="testimonial-author-role">Adventurer</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonial 3 -->
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"A trip I will never forget. The local culture, the food, and the people made it truly special. Thank you for the amazing memories!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60x60/d1d5db/374151?text=C" alt="Traveler 3" class="testimonial-author-img">
-                            <div>
-                                <p class="testimonial-author-name">John Doe</p>
-                                <p class="testimonial-author-role">Tourist</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonial 4 -->
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"A trip I will never forget. The local culture, the food, and the people made it truly special. Thank you for the amazing memories!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60x60/d1d5db/374151?text=C" alt="Traveler 3" class="testimonial-author-img">
-                            <div>
-                                <p class="testimonial-author-name">John Doe</p>
-                                <p class="testimonial-author-role">Tourist</p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Testimonial 5 -->
-                    <div class="testimonial-card">
-                        <p class="testimonial-text">"A trip I will never forget. The local culture, the food, and the people made it truly special. Thank you for the amazing memories!"</p>
-                        <div class="testimonial-author">
-                            <img src="https://placehold.co/60x60/d1d5db/374151?text=C" alt="Traveler 3" class="testimonial-author-img">
-                            <div>
-                                <p class="testimonial-author-name">John Doe</p>
-                                <p class="testimonial-author-role">Tourist</p>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </section>
@@ -376,12 +271,13 @@
         <!-- CTA Section -->
         <section id="contact" class="section-padding cta-section">
             <div class="container text-center fade-in">
-    <h2 class="cta-title">Ready to Start Your Journey?</h2>
-    <p class="cta-text">Contact us today to plan the perfect escape. Our team of experts is ready to help you create a personalized itinerary.</p>
-    <button type="button" id="open-contact-popup" class="cta-button-white">
-        Get in Touch
-    </button>
-</div>
+                <h2 class="cta-title">Ready to Start Your Journey?</h2>
+                <p class="cta-text">Contact us today to plan the perfect escape. Our team of experts is ready to help
+                    you create a personalized itinerary.</p>
+                <button type="button" id="open-contact-popup" class="cta-button-white">
+                    Get in Touch
+                </button>
+            </div>
 
         </section>
 
@@ -393,7 +289,8 @@
             <!-- About Us -->
             <div>
                 <h3 class="footer-title">About Us</h3>
-                <p style="font-size: 0.875rem;">We are a passionate team dedicated to providing unforgettable travel experiences. Explore the world with us!</p>
+                <p style="font-size: 0.875rem;">We are a passionate team dedicated to providing unforgettable travel
+                    experiences. Explore the world with us!</p>
             </div>
             <!-- Quick Links -->
             <div>
@@ -409,18 +306,49 @@
             <div>
                 <h3 class="footer-title">Contact Us</h3>
                 <ul class="footer-contact">
-                    <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg> info@VoyageAdventures.com</li>
-                    <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.63A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z"></path></svg> +1 (555) 123-4567</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z">
+                            </path>
+                            <polyline points="22,6 12,13 2,6"></polyline>
+                        </svg> info@VoyageAdventures.com</li>
+                    <li><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path
+                                d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.63A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z">
+                            </path>
+                        </svg> +1 (555) 123-4567</li>
                 </ul>
             </div>
             <!-- Social Media -->
             <div>
                 <h3 class="footer-title">Follow Us</h3>
                 <div class="footer-social-icons">
-                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path></svg></a>
-                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path></svg></a>
-                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>
-                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268a1.71 1.71 0 01-1.71-1.72c0-.949.771-1.72 1.71-1.72s1.709.771 1.71 1.72c0 .949-.771 1.72-1.71 1.72zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.784 7 2.476v6.759z"/></svg></a>
+                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
+                        </svg></a>
+                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path
+                                d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z">
+                            </path>
+                        </svg></a>
+                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                        </svg></a>
+                    <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                            stroke-linejoin="round">
+                            <path
+                                d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268a1.71 1.71 0 01-1.71-1.72c0-.949.771-1.72 1.71-1.72s1.709.771 1.71 1.72c0 .949-.771 1.72-1.71 1.72zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.784 7 2.476v6.759z" />
+                        </svg></a>
                 </div>
             </div>
         </div>
@@ -429,195 +357,185 @@
         </div>
     </footer>
 
-<!-- =========================================
+    <!-- =========================================
      DESTINATION DETAILS MODAL
 ========================================= -->
 
-<div id="destination-modal" class="destination-modal">
+    <div id="destination-modal" class="destination-modal">
 
-    <div class="destination-modal-overlay"></div>
+        <div class="destination-modal-overlay"></div>
 
-    <div class="destination-modal-content">
+        <div class="destination-modal-content">
 
-        <!-- Close Button -->
-        <button
-            id="close-destination-modal"
-            class="modal-close"
-            aria-label="Close destination details">
-            ×
-        </button>
+            <!-- Close Button -->
+            <button id="close-destination-modal" class="modal-close" aria-label="Close destination details">
+                ×
+            </button>
 
-        <!-- Image -->
-        <div class="modal-image-wrapper">
+            <!-- Image -->
+            <div class="modal-image-wrapper">
 
-            <img
-                id="modal-destination-image"
-                src=""
-                alt="Destination">
+                <img id="modal-destination-image" src="" alt="Destination">
 
-            <div class="modal-image-overlay"></div>
+                <div class="modal-image-overlay"></div>
 
-            <div class="modal-image-info">
+                <div class="modal-image-info">
 
-                <span id="modal-destination-location">
-                    📍 India
-                </span>
-
-                <h2 id="modal-destination-name">
-                    Kashmir
-                </h2>
-
-            </div>
-
-        </div>
-
-        <!-- Details -->
-        <div class="modal-details">
-
-            <div class="modal-top-row">
-
-                <div class="modal-rating">
-                    ⭐
-                    <strong id="modal-rating">
-                        4.8
-                    </strong>
-
-                    <span>
-                        Excellent
-                    </span>
-                </div>
-
-                <div class="modal-price">
-
-                    <span>
-                        Starting from
+                    <span id="modal-destination-location">
+                        📍 India
                     </span>
 
-                    <strong id="modal-price">
-                        ₹12,999
-                    </strong>
-
-                    <small>
-                        per person
-                    </small>
+                    <h2 id="modal-destination-name">
+                        Kashmir
+                    </h2>
 
                 </div>
 
             </div>
 
-            <!-- Description -->
+            <!-- Details -->
+            <div class="modal-details">
 
-            <p
-                id="modal-destination-description"
-                class="modal-description">
-            </p>
+                <div class="modal-top-row">
 
-            <!-- Trip Information -->
+                    <div class="modal-rating">
+                        ⭐
+                        <strong id="modal-rating">
+                            4.8
+                        </strong>
 
-            <div class="trip-info-grid">
+                        <span>
+                            Excellent
+                        </span>
+                    </div>
 
-                <div class="trip-info-item">
+                    <div class="modal-price">
 
-                    <span class="trip-info-icon">
-                        📅
-                    </span>
+                        <span>
+                            Starting from
+                        </span>
 
-                    <div>
+                        <strong id="modal-price">
+                            ₹12,999
+                        </strong>
+
                         <small>
-                            Duration
+                            per person
                         </small>
 
-                        <strong id="modal-duration">
-                            5 Days / 4 Nights
-                        </strong>
                     </div>
 
                 </div>
 
-                <div class="trip-info-item">
+                <!-- Description -->
 
-    <span class="trip-info-icon">
-        👥
-    </span>
+                <p id="modal-destination-description" class="modal-description">
+                </p>
 
-    <div>
-        <small>
-            Group Size
-        </small>
+                <!-- Trip Information -->
 
-        <strong id="modal-group-size">
-            No departures available
-        </strong>
-    </div>
+                <div class="trip-info-grid">
 
-</div>
+                    <div class="trip-info-item">
 
-                <div class="trip-info-item">
+                        <span class="trip-info-icon">
+                            📅
+                        </span>
 
-                    <span class="trip-info-icon">
-                        🌤️
-                    </span>
+                        <div>
+                            <small>
+                                Duration
+                            </small>
 
-                    <div>
-                        <small>
-                            Best Time
-                        </small>
+                            <strong id="modal-duration">
+                                5 Days / 4 Nights
+                            </strong>
+                        </div>
 
-                        <strong id="modal-best-time">
-                            April – October
-                        </strong>
+                    </div>
+
+                    <div class="trip-info-item">
+
+                        <span class="trip-info-icon">
+                            👥
+                        </span>
+
+                        <div>
+                            <small>
+                                Group Size
+                            </small>
+
+                            <strong id="modal-group-size">
+                                No departures available
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <div class="trip-info-item">
+
+                        <span class="trip-info-icon">
+                            🌤️
+                        </span>
+
+                        <div>
+                            <small>
+                                Best Time
+                            </small>
+
+                            <strong id="modal-best-time">
+                                April – October
+                            </strong>
+                        </div>
+
+                    </div>
+
+                    <div class="trip-info-item">
+
+                        <span class="trip-info-icon">
+                            🎒
+                        </span>
+
+                        <div>
+                            <small>
+                                Trip Type
+                            </small>
+
+                            <strong id="modal-trip-type">
+                                Adventure
+                            </strong>
+                        </div>
+
                     </div>
 
                 </div>
 
-                <div class="trip-info-item">
+                <!-- Highlights -->
 
-                    <span class="trip-info-icon">
-                        🎒
-                    </span>
+                <div class="modal-highlights">
 
-                    <div>
-                        <small>
-                            Trip Type
-                        </small>
+                    <h3>
+                        Trip Highlights
+                    </h3>
 
-                        <strong id="modal-trip-type">
-                            Adventure
-                        </strong>
-                    </div>
+                    <ul id="modal-highlights-list">
+                    </ul>
 
                 </div>
 
-            </div>
+                <!-- Actions -->
 
-            <!-- Highlights -->
+                <div class="modal-actions">
 
-            <div class="modal-highlights">
+                    <button id="modal-wishlist-button" class="modal-wishlist-button">
+                        ♡ Save to Wishlist
+                    </button>
 
-                <h3>
-                    Trip Highlights
-                </h3>
+                    <button id="book-destination-button" class="modal-book-button">
+                        Book This Trip →
+                    </button>
 
-                <ul id="modal-highlights-list">
-                </ul>
-
-            </div>
-
-            <!-- Actions -->
-
-            <div class="modal-actions">
-
-                <button
-                    id="modal-wishlist-button"
-                    class="modal-wishlist-button">
-                    ♡ Save to Wishlist
-                </button>
-
-                <button
-                    id="book-destination-button"
-                    class="modal-book-button">
-                    Book This Trip →
-                </button>
+                </div>
 
             </div>
 
@@ -625,196 +543,380 @@
 
     </div>
 
-</div>
-
-<!-- =========================================
+    <!-- =========================================
      BOOKING MODAL
 ========================================= -->
 
-<div id="booking-modal" class="booking-modal">
+    <div id="booking-modal" class="booking-modal">
 
-    <div class="booking-modal-overlay"></div>
+        <div class="booking-modal-overlay"></div>
 
-    <div class="booking-modal-content">
+        <div class="booking-modal-content">
 
-        <button
-            id="close-booking-modal"
-            class="booking-close"
-            aria-label="Close booking">
-            ×
-        </button>
+            <button id="close-booking-modal" class="booking-close" aria-label="Close booking">
+                ×
+            </button>
 
-        <!-- Header -->
+            <!-- Header -->
 
-        <div class="booking-header">
+            <div class="booking-header">
 
-            <span class="section-tag">
-                PLAN YOUR ADVENTURE
-            </span>
+                <span class="section-tag">
+                    PLAN YOUR ADVENTURE
+                </span>
 
-            <h2>
-                Book Your Trip
-            </h2>
+                <h2>
+                    Book Your Trip
+                </h2>
 
-            <p>
-                Complete the details below to plan
-                your perfect getaway.
-            </p>
-
-        </div>
-
-        <!-- Booking Form -->
-
-        <form id="booking-form">
-
-            <!-- Selected Destination -->
-
-            <div class="selected-destination">
-
-                <img
-                    id="booking-destination-image"
-                    src=""
-                    alt="Selected destination">
-
-                <div>
-
-                    <span>
-                        You're booking
-                    </span>
-
-                    <h3 id="booking-destination-name">
-                        Kashmir
-                    </h3>
-
-                    <p id="booking-destination-price">
-                        ₹12,999 per person
-                    </p>
-
-                </div>
-
-            </div>
-
-            <!-- Package -->
-
-            <div class="form-group">
-
-                <label for="trip-package">
-                    Choose Package
-                </label>
-
-                <select
-                    id="trip-package"
-                    required>
-
-                    <option
-                        value="standard">
-                        Standard Package
-                    </option>
-
-                    <option
-                        value="comfort">
-                        Comfort Package (+₹4,000/person)
-                    </option>
-
-                    <option
-                        value="premium">
-                        Premium Package (+₹8,000/person)
-                    </option>
-
-                </select>
-
-            </div>
-
-            <!-- Departure -->
-
-            <div class="form-group">
-
-                <label for="trip-departure">
-                    Choose Departure
-                </label>
-
-                <select
-                    id="trip-departure"
-                    required>
-
-                    <option value="">
-                        Select a departure date
-                    </option>
-
-                </select>
-
-                <p
-                    id="departure-availability"
-                    class="departure-availability">
+                <p>
+                    Complete the details below to plan
+                    your perfect getaway.
                 </p>
 
             </div>
 
-            <!-- Travelers -->
+            <!-- Booking Form -->
 
-            <div class="form-group">
+            <form id="booking-form">
 
-                <label for="travelers">
-                    Number of Travelers
-                </label>
+                <!-- Selected Destination -->
 
-                <div class="traveler-selector">
+                <div class="selected-destination">
 
-                    <button
-                        type="button"
-                        id="decrease-travelers">
-                        −
-                    </button>
+                    <img id="booking-destination-image" src="" alt="Selected destination">
 
-                    <span id="traveler-count">
-                        1
-                    </span>
+                    <div>
 
-                    <button
-                        type="button"
-                        id="increase-travelers">
-                        +
-                    </button>
+                        <span>
+                            You're booking
+                        </span>
+
+                        <h3 id="booking-destination-name">
+                            Kashmir
+                        </h3>
+
+                        <p id="booking-destination-price">
+                            ₹12,999 per person
+                        </p>
+
+                    </div>
 
                 </div>
 
+                <!-- Package -->
+
+                <div class="form-group">
+
+                    <label for="trip-package">
+                        Choose Package
+                    </label>
+
+                    <select id="trip-package" required>
+
+                        <option value="standard">
+                            Standard Package
+                        </option>
+
+                        <option value="comfort">
+                            Comfort Package (+₹4,000/person)
+                        </option>
+
+                        <option value="premium">
+                            Premium Package (+₹8,000/person)
+                        </option>
+
+                    </select>
+
+                </div>
+
+                <!-- Departure -->
+
+                <div class="form-group">
+
+                    <label for="trip-departure">
+                        Choose Departure
+                    </label>
+
+                    <select id="trip-departure" required>
+
+                        <option value="">
+                            Select a departure date
+                        </option>
+
+                    </select>
+
+                    <p id="departure-availability" class="departure-availability">
+                    </p>
+
+                </div>
+
+                <!-- Travelers -->
+
+                <div class="form-group">
+
+                    <label for="travelers">
+                        Number of Travelers
+                    </label>
+
+                    <div class="traveler-selector">
+
+                        <button type="button" id="decrease-travelers">
+                            −
+                        </button>
+
+                        <span id="traveler-count">
+                            1
+                        </span>
+
+                        <button type="button" id="increase-travelers">
+                            +
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Traveler Details -->
+
+                <div class="traveler-details">
+
+                    <h3>
+                        Traveler Information
+                    </h3>
+
+                    <div class="form-row">
+
+                        <div class="form-group">
+
+                            <label for="traveler-name">
+                                Full Name
+                            </label>
+
+                            <input type="text" id="traveler-name" placeholder="Enter your name" required>
+
+                        </div>
+
+                        <div class="form-group">
+
+                            <label for="traveler-email">
+                                Email
+                            </label>
+
+                            <input type="email" id="traveler-email" placeholder="you@example.com" required>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="traveler-phone">
+                            Phone Number
+                        </label>
+
+                        <input type="tel" id="traveler-phone" placeholder="Enter your phone number" required>
+
+                    </div>
+
+                </div>
+
+                <!-- Special Requests -->
+
+                <div class="form-group">
+
+                    <label for="special-request">
+                        Special Requests
+                        <span class="optional">
+                            Optional
+                        </span>
+                    </label>
+
+                    <textarea id="special-request" rows="3" placeholder="Any special requirements?"></textarea>
+
+                </div>
+
+                <!-- Booking Summary -->
+
+                <div class="booking-summary">
+
+                    <h3>
+                        Booking Summary
+                    </h3>
+
+                    <div class="summary-row">
+
+                        <span>
+                            Price per person
+                        </span>
+
+                        <strong id="summary-price">
+                            ₹12,999
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>
+                            Travelers
+                        </span>
+
+                        <strong id="summary-travelers">
+                            1
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-row">
+
+                        <span>
+                            Package
+                        </span>
+
+                        <strong id="summary-package">
+                            Standard
+                        </strong>
+
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-total">
+
+                        <span>
+                            Total
+                        </span>
+
+                        <strong id="summary-total">
+                            ₹12,999
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <!-- Submit -->
+
+                <button type="submit" class="confirm-booking-button">
+
+                    Confirm Booking →
+
+                </button>
+
+                <p class="booking-note">
+                    Your booking will be confirmed after
+                    submitting your details.
+                </p>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Booking Success -->
+
+    <div id="booking-success" class="booking-success">
+
+        <div class="booking-success-content">
+
+            <div class="success-icon">
+                ✓
             </div>
 
-            <!-- Traveler Details -->
+            <h2>
+                Booking Request Received!
+            </h2>
 
-            <div class="traveler-details">
+            <p>
+                Thank you for choosing Voyage Adventures.
+            </p>
 
-                <h3>
-                    Traveler Information
-                </h3>
+            <div class="booking-reference">
+
+                <span>
+                    Booking Reference
+                </span>
+
+                <strong id="booking-reference-number">
+                    VA000000
+                </strong>
+
+            </div>
+
+            <p class="success-message">
+                We've received your trip details.
+                A confirmation will be sent to your email.
+            </p>
+
+            <div class="booking-sucess-actions">
+                <button type="button" id="view-my-booking">
+                    View My Booking
+                </button>
+
+                <button id="close-success" class="success-close-button">
+                    Done
+                </button>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- =========================================
+     CONTACT MODAL
+========================================= -->
+
+    <div id="contact-modal" class="contact-modal">
+
+        <div class="contact-modal-overlay"></div>
+
+        <div class="contact-modal-content">
+
+            <button type="button" id="close-contact-modal" class="contact-modal-close" aria-label="Close contact form">
+                ×
+            </button>
+
+            <div class="contact-modal-header">
+
+                <span class="section-tag">
+                    LET'S TALK
+                </span>
+
+                <h2>
+                    Get in Touch
+                </h2>
+
+                <p>
+                    Have a question or need help planning
+                    your next adventure? We'd love to hear
+                    from you.
+                </p>
+
+            </div>
+
+            <form id="contact-form">
 
                 <div class="form-row">
 
                     <div class="form-group">
 
-                        <label for="traveler-name">
-                            Full Name
+                        <label for="contact-name">
+                            Name
                         </label>
 
-                        <input
-                            type="text"
-                            id="traveler-name"
-                            placeholder="Enter your name"
-                            required>
+                        <input type="text" id="contact-name" placeholder="Your name" required>
 
                     </div>
 
                     <div class="form-group">
 
-                        <label for="traveler-email">
+                        <label for="contact-email">
                             Email
                         </label>
 
-                        <input
-                            type="email"
-                            id="traveler-email"
-                            placeholder="you@example.com"
-                            required>
+                        <input type="email" id="contact-email" placeholder="you@example.com" required>
 
                     </div>
 
@@ -822,285 +924,37 @@
 
                 <div class="form-group">
 
-                    <label for="traveler-phone">
-                        Phone Number
+                    <label for="contact-subject">
+                        Subject
                     </label>
 
-                    <input
-                        type="tel"
-                        id="traveler-phone"
-                        placeholder="Enter your phone number"
-                        required>
-
-                </div>
-
-            </div>
-
-            <!-- Special Requests -->
-
-            <div class="form-group">
-
-                <label for="special-request">
-                    Special Requests
-                    <span class="optional">
-                        Optional
-                    </span>
-                </label>
-
-                <textarea
-                    id="special-request"
-                    rows="3"
-                    placeholder="Any special requirements?"></textarea>
-
-            </div>
-
-            <!-- Booking Summary -->
-
-            <div class="booking-summary">
-
-                <h3>
-                    Booking Summary
-                </h3>
-
-                <div class="summary-row">
-
-                    <span>
-                        Price per person
-                    </span>
-
-                    <strong id="summary-price">
-                        ₹12,999
-                    </strong>
-
-                </div>
-
-                <div class="summary-row">
-
-                    <span>
-                        Travelers
-                    </span>
-
-                    <strong id="summary-travelers">
-                        1
-                    </strong>
-
-                </div>
-
-                <div class="summary-row">
-
-                    <span>
-                        Package
-                    </span>
-
-                    <strong id="summary-package">
-                        Standard
-                    </strong>
-
-                </div>
-
-                <div class="summary-divider"></div>
-
-                <div class="summary-total">
-
-                    <span>
-                        Total
-                    </span>
-
-                    <strong id="summary-total">
-                        ₹12,999
-                    </strong>
-
-                </div>
-
-            </div>
-
-            <!-- Submit -->
-
-            <button
-                type="submit"
-                class="confirm-booking-button">
-
-                Confirm Booking →
-
-            </button>
-
-            <p class="booking-note">
-                Your booking will be confirmed after
-                submitting your details.
-            </p>
-
-        </form>
-
-    </div>
-
-</div>
-
-<!-- Booking Success -->
-
-<div
-    id="booking-success"
-    class="booking-success">
-
-    <div class="booking-success-content">
-
-        <div class="success-icon">
-            ✓
-        </div>
-
-        <h2>
-            Booking Request Received!
-        </h2>
-
-        <p>
-            Thank you for choosing Voyage Adventures.
-        </p>
-
-        <div class="booking-reference">
-
-            <span>
-                Booking Reference
-            </span>
-
-            <strong id="booking-reference-number">
-                VA000000
-            </strong>
-
-        </div>
-
-        <p class="success-message">
-            We've received your trip details.
-            A confirmation will be sent to your email.
-        </p>
-
-        <div class="booking-sucess-actions">
-            <button
-                type="button"
-                id="view-my-booking">
-                View My Booking
-            </button>
-
-            <button
-                id="close-success"
-                class="success-close-button">
-                Done
-            </button>
-        </div>
-
-    </div>
-
-</div>
-
-<!-- =========================================
-     CONTACT MODAL
-========================================= -->
-
-<div id="contact-modal" class="contact-modal">
-
-    <div class="contact-modal-overlay"></div>
-
-    <div class="contact-modal-content">
-
-        <button
-            type="button"
-            id="close-contact-modal"
-            class="contact-modal-close"
-            aria-label="Close contact form">
-            ×
-        </button>
-
-        <div class="contact-modal-header">
-
-            <span class="section-tag">
-                LET'S TALK
-            </span>
-
-            <h2>
-                Get in Touch
-            </h2>
-
-            <p>
-                Have a question or need help planning
-                your next adventure? We'd love to hear
-                from you.
-            </p>
-
-        </div>
-
-        <form id="contact-form">
-
-            <div class="form-row">
-
-                <div class="form-group">
-
-                    <label for="contact-name">
-                        Name
-                    </label>
-
-                    <input
-                        type="text"
-                        id="contact-name"
-                        placeholder="Your name"
-                        required>
+                    <input type="text" id="contact-subject" placeholder="How can we help?" required>
 
                 </div>
 
                 <div class="form-group">
 
-                    <label for="contact-email">
-                        Email
+                    <label for="contact-message">
+                        Message
                     </label>
 
-                    <input
-                        type="email"
-                        id="contact-email"
-                        placeholder="you@example.com"
-                        required>
+                    <textarea id="contact-message" rows="5" placeholder="Tell us about your trip..."
+                        required></textarea>
 
                 </div>
 
-            </div>
+                <button type="submit" class="contact-submit-button">
 
-            <div class="form-group">
+                    Send Message →
 
-                <label for="contact-subject">
-                    Subject
-                </label>
+                </button>
 
-                <input
-                    type="text"
-                    id="contact-subject"
-                    placeholder="How can we help?"
-                    required>
+            </form>
 
-            </div>
-
-            <div class="form-group">
-
-                <label for="contact-message">
-                    Message
-                </label>
-
-                <textarea
-                    id="contact-message"
-                    rows="5"
-                    placeholder="Tell us about your trip..."
-                    required></textarea>
-
-            </div>
-
-            <button
-                type="submit"
-                class="contact-submit-button">
-
-                Send Message →
-
-            </button>
-
-        </form>
+        </div>
 
     </div>
-
-</div>
 
 </body>
+
 </html>
