@@ -1,9 +1,11 @@
 const protectAdmin = require('../middleware/authMiddleware');
+const protectUser = require('../middleware/userAuthMiddleware');
 const mongoose = require('mongoose');
 const express = require('express');
 const Booking = require('../models/Booking');
 const Destination = require('../models/Destination');
 const sendBookingEmail = require('../config/bookingEmail');
+const jwt = require('jsonwebtoken');
 
 const router = express.Router();
 
@@ -13,6 +15,37 @@ router.post('/', async (req, res) => {
     const session = await mongoose.startSession();
 
     try {
+        console.log("BOOKING REQUEST STARTED");
+
+        let loggedInUserId = null;
+
+const authHeader = req.headers.authorization;
+
+if (
+    authHeader &&
+    authHeader.startsWith("Bearer ")
+) {
+    try {
+
+        const token = authHeader.split(" ")[1];
+
+        const decoded = jwt.verify(
+            token,
+            process.env.JWT_SECRET
+        );
+
+        if (decoded.role === "user") {
+            loggedInUserId = decoded.id;
+        }
+
+    } catch (error) {
+
+        console.log(
+            "Optional user authentication failed."
+        );
+
+    }
+}
 
         const {
             customerName,
@@ -72,18 +105,20 @@ router.post('/', async (req, res) => {
 
         let booking;
         let bookingDeparture;
+console.log("BOOKING TRANSACTION STARTED");
 
+await session.withTransaction(async () => {
         await session.withTransaction(async () => {
 
             // -------------------------------------------------
             // Find destination
             // -------------------------------------------------
-
+console.log("Finding destination...");
             const destination =
                 await Destination.findById(
                     destinationId
                 ).session(session);
-
+console.log("Destination found");
             if (!destination) {
                 throw new Error(
                     'Destination not found.'
@@ -134,11 +169,11 @@ router.post('/', async (req, res) => {
             // -------------------------------------------------
 
             departure.bookedSeats += travelerCount;
-
+console.log("Saving destination...");
             await destination.save({
                 session
             });
-
+console.log("Destination saved");
 
             // -------------------------------------------------
             // Create booking
@@ -162,6 +197,8 @@ router.post('/', async (req, res) => {
 
                     departureId,
 
+                    userId: loggedInUserId,
+
                     travelers:
                         travelerCount,
 
@@ -181,11 +218,11 @@ router.post('/', async (req, res) => {
 
                 });
 
-
+console.log("Saving booking...");
             await booking.save({
                 session
             });
-
+console.log("Booking saved");
 
             bookingDeparture = {
                 startDate:
@@ -206,31 +243,28 @@ router.post('/', async (req, res) => {
             };
 
         });
+console.log("BOOKING TRANSACTION COMPLETED");
 
+       // =====================================================
+// EMAIL
+// =====================================================
 
-        // =====================================================
-        // EMAIL
-        // =====================================================
-
-        try {
-
-            await sendBookingEmail(
-                booking,
-                'created'
-            );
-
-            console.log(
-                `Booking email sent to ${booking.customerEmail}`
-            );
-
-        } catch (emailError) {
-
-            console.error(
-                'Booking email failed:',
-                emailError.message
-            );
-
-        }
+// Send email without making the customer wait for it
+sendBookingEmail(
+    booking,
+    'created'
+)
+    .then(() => {
+        console.log(
+            `Booking email sent to ${booking.customerEmail}`
+        );
+    })
+    .catch((emailError) => {
+        console.error(
+            'Booking email failed:',
+            emailError.message
+        );
+    });
 
 
         // =====================================================
@@ -354,6 +388,37 @@ router.post('/lookup', async (req, res) => {
 
         res.status(500).json({
             message: 'Unable to look up booking'
+        });
+    }
+});
+
+// =========================================
+// GET LOGGED-IN USER'S BOOKINGS
+// =========================================
+
+router.get('/my', protectUser, async (req, res) => {
+
+    try {
+
+        const bookings = await Booking
+            .find({
+                userId: req.user.id
+            })
+            .sort({
+                createdAt: -1
+            });
+
+        res.json(bookings);
+
+    } catch (error) {
+
+        console.error(
+            'Failed to fetch user bookings:',
+            error.message
+        );
+
+        res.status(500).json({
+            message: 'Failed to fetch your bookings'
         });
     }
 });
