@@ -15,7 +15,7 @@ router.post('/', async (req, res) => {
     const session = await mongoose.startSession();
 
     try {
-        console.log("BOOKING REQUEST STARTED");
+       
 
         let loggedInUserId = null;
 
@@ -105,19 +105,19 @@ if (
 
         let booking;
         let bookingDeparture;
-console.log("BOOKING TRANSACTION STARTED");
+
 
         await session.withTransaction(async () => {
 
             // -------------------------------------------------
             // Find destination
             // -------------------------------------------------
-console.log("Finding destination...");
+
             const destination =
                 await Destination.findById(
                     destinationId
                 ).session(session);
-console.log("Destination found");
+
             if (!destination) {
                 throw new Error(
                     'Destination not found.'
@@ -168,11 +168,11 @@ console.log("Destination found");
             // -------------------------------------------------
 
             departure.bookedSeats += travelerCount;
-console.log("Saving destination...");
+
             await destination.save({
                 session
             });
-console.log("Destination saved");
+
 
             // -------------------------------------------------
             // Create booking
@@ -217,11 +217,11 @@ console.log("Destination saved");
 
                 });
 
-console.log("Saving booking...");
+
             await booking.save({
                 session
             });
-console.log("Booking saved");
+
 
             bookingDeparture = {
                 startDate:
@@ -242,7 +242,7 @@ console.log("Booking saved");
             };
 
         });
-console.log("BOOKING TRANSACTION COMPLETED");
+
 // =====================================================
 // EMAIL
 // =====================================================
