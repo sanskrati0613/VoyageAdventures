@@ -14,7 +14,7 @@
     11. Contact Modal
    ========================================================= */
 
-const API_BASE_URL = "http://localhost:5000";
+const API_BASE_URL = 'https://voyageadventures-backend.onrender.com';
 
 function getImageUrl(imagePath) {
   if (!imagePath) {
