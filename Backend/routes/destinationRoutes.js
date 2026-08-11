@@ -243,16 +243,13 @@ router.put("/:id", protectAdmin, upload.single("image"), async (req, res) => {
       destination,
     });
   } catch (error) {
-    console.error("Failed to update destination:", error.message);
+  console.error("Failed to update destination:", error);
 
-    if (req.file) {
-      fs.unlink(req.file.path, () => {});
-    }
+  res.status(400).json({
+    message: error.message || "Failed to update destination",
+  });
+}
 
-    res.status(400).json({
-      message: error.message || "Failed to update destination",
-    });
-  }
 });
 
 // =========================================================
