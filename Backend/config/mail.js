@@ -1,12 +1,18 @@
-const { Resend } = require("resend");
+const { BrevoClient } = require("@getbrevo/brevo");
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const brevo = new BrevoClient({
+    apiKey: process.env.BREVO_API_KEY,
+    timeoutInSeconds: 15,
+    maxRetries: 0
+});
 
-const FROM_EMAIL = "onboarding@resend.dev";
+const FROM_EMAIL = process.env.EMAIL_USER;
+const FROM_NAME = "Voyage Adventures";
 
 const ADMIN_EMAIL =
     process.env.CONTACT_RECEIVER_EMAIL ||
     process.env.EMAIL_USER;
+
 
 async function sendEmail({
     to,
@@ -14,27 +20,58 @@ async function sendEmail({
     html,
     replyTo
 }) {
-    const { data, error } = await resend.emails.send({
-        from: `Voyage Adventures <${FROM_EMAIL}>`,
-        to,
-        subject,
-        html,
-        ...(replyTo ? { replyTo } : {})
-    });
 
-    if (error) {
-        console.error("Resend email failed:", error);
-        throw new Error(
-            error.message || "Failed to send email"
+    try {
+
+        const result =
+            await brevo.transactionalEmails.sendTransacEmail({
+
+                sender: {
+                    email: FROM_EMAIL,
+                    name: FROM_NAME
+                },
+
+                to: [
+                    {
+                        email: to
+                    }
+                ],
+
+                subject,
+
+                htmlContent: html,
+
+                ...(replyTo
+                    ? {
+                        replyTo: {
+                            email: replyTo
+                        }
+                    }
+                    : {})
+            });
+
+
+        console.log(
+            "Brevo email sent successfully:",
+            result.messageId
         );
+
+
+        return result;
+
+    } catch (error) {
+
+        console.error(
+            "Brevo email failed:",
+            error.message
+        );
+
+        throw error;
+
     }
 
-    console.log(
-        `Resend email sent successfully: ${data?.id || "unknown"}`
-    );
-
-    return data;
 }
+
 
 module.exports = {
     sendEmail,

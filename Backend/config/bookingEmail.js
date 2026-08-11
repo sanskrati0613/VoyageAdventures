@@ -1,4 +1,4 @@
-const { sendEmail } = require('../config/mail');
+const { sendEmail } = require("./mail");
 
 
 async function sendBookingEmail(booking, type) {
@@ -12,13 +12,13 @@ async function sendBookingEmail(booking, type) {
     // BOOKING CREATED
     // =====================================================
 
-    if (type === 'created') {
+    if (type === "created") {
 
         subject =
             `Booking Request Received - ${booking.bookingReference}`;
 
         title =
-            'Booking Request Received';
+            "Booking Request Received";
 
         message = `
             Thank you for choosing Voyage Adventures.
@@ -33,13 +33,13 @@ async function sendBookingEmail(booking, type) {
     // BOOKING CONFIRMED
     // =====================================================
 
-    if (type === 'confirmed') {
+    else if (type === "confirmed") {
 
         subject =
             `Booking Confirmed - ${booking.bookingReference}`;
 
         title =
-            'Booking Confirmed!';
+            "Booking Confirmed!";
 
         message = `
             Great news! Your Voyage Adventures booking has
@@ -53,13 +53,13 @@ async function sendBookingEmail(booking, type) {
     // BOOKING CANCELLED
     // =====================================================
 
-    if (type === 'cancelled') {
+    else if (type === "cancelled") {
 
         subject =
             `Booking Cancelled - ${booking.bookingReference}`;
 
         title =
-            'Booking Cancelled';
+            "Booking Cancelled";
 
         message = `
             Your Voyage Adventures booking has been cancelled.
@@ -70,7 +70,20 @@ async function sendBookingEmail(booking, type) {
 
 
     // =====================================================
-    // EMAIL CONTENT
+    // INVALID EMAIL TYPE
+    // =====================================================
+
+    else {
+
+        throw new Error(
+            `Unknown booking email type: ${type}`
+        );
+
+    }
+
+
+    // =====================================================
+    // EMAIL HTML
     // =====================================================
 
     const html = `
@@ -128,31 +141,31 @@ async function sendBookingEmail(booking, type) {
 
             <p>
                 <strong>Start Date:</strong>
-                ${booking.startDate
+                ${new Date(booking.startDate)
                     .toISOString()
-                    .split('T')[0]}
+                    .split("T")[0]}
             </p>
 
 
             <p>
                 <strong>End Date:</strong>
-                ${booking.endDate
+                ${new Date(booking.endDate)
                     .toISOString()
-                    .split('T')[0]}
+                    .split("T")[0]}
             </p>
 
 
             <p>
                 <strong>Price per Person:</strong>
-                ₹${booking.pricePerPerson
-                    .toLocaleString('en-IN')}
+                ₹${Number(booking.pricePerPerson)
+                    .toLocaleString("en-IN")}
             </p>
 
 
             <p>
                 <strong>Total Price:</strong>
-                ₹${booking.totalPrice
-                    .toLocaleString('en-IN')}
+                ₹${Number(booking.totalPrice)
+                    .toLocaleString("en-IN")}
             </p>
 
 
@@ -168,7 +181,7 @@ async function sendBookingEmail(booking, type) {
 
 
             <p>
-                ${booking.specialRequest || 'None'}
+                ${booking.specialRequest || "None"}
             </p>
 
 
@@ -191,7 +204,7 @@ async function sendBookingEmail(booking, type) {
 
 
     // =====================================================
-    // SEND EMAIL
+    // SEND TO THE CUSTOMER'S EMAIL
     // =====================================================
 
     await sendEmail({
