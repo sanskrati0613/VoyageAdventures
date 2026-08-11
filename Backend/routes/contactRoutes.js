@@ -17,7 +17,7 @@ const router = express.Router();
 // =========================================================
 
 router.post('/', async (req, res) => {
-
+console.log("🔥 CONTACT ROUTE VERSION: RESEND TEST 1");
     try {
 
         const {
