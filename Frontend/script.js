@@ -430,40 +430,130 @@ let wishlist = new Set(
 
 const destinationData = {};
 
+// =========================================
+// PAGE LOADER
+// =========================================
+
+function hidePageLoader() {
+
+  const pageLoader =
+    document.getElementById("page-loader");
+
+  if (pageLoader) {
+    pageLoader.classList.add("hidden");
+  }
+}
+
 async function loadDestinations() {
+
   try {
-    const response = await fetch(`${API_BASE_URL}/api/destinations`);
+
+    const response =
+      await fetch(
+        `${API_BASE_URL}/api/destinations`
+      );
 
     if (!response.ok) {
-      throw new Error("Failed to fetch destinations");
+      throw new Error(
+        "Failed to fetch destinations"
+      );
     }
 
-    const destinations = await response.json();
+    const destinations =
+      await response.json();
 
     destinations.forEach((destination) => {
-      const id = destination.name.toLowerCase();
+
+      const id =
+        destination.name.toLowerCase();
 
       destinationData[id] = {
+
         _id: destination._id,
+
         name: destination.name,
-        location: `📍 ${destination.location}`,
-        image: getImageUrl(destination.image),
-        rating: String(destination.rating),
-        price: `₹${destination.price.toLocaleString("en-IN")}`,
-        duration: destination.duration,
-        bestTime: destination.bestTime,
-        type: destination.type,
-        description: destination.description,
-        highlights: destination.highlights,
-        departures: destination.departures || [],
+
+        location:
+          `📍 ${destination.location}`,
+
+        image:
+          getImageUrl(destination.image),
+
+        rating:
+          String(destination.rating),
+
+        price:
+          `₹${destination.price.toLocaleString("en-IN")}`,
+
+        duration:
+          destination.duration,
+
+        bestTime:
+          destination.bestTime,
+
+        type:
+          destination.type,
+
+        description:
+          destination.description,
+
+        highlights:
+          destination.highlights,
+
+        departures:
+          destination.departures || []
       };
+
     });
 
+    // Render all destinations
     renderDestinations(destinations);
 
-    console.log("Destinations loaded from MongoDB");
+    console.log(
+      "Destinations loaded from MongoDB"
+    );
+
   } catch (error) {
-    console.error("Failed to load destinations:", error);
+
+    console.error(
+      "Failed to load destinations:",
+      error
+    );
+
+    // Show a user-friendly message
+    const container =
+      document.getElementById(
+        "destinations-grid"
+      );
+
+    if (container) {
+
+      container.innerHTML = `
+        <div class="destination-load-error">
+          <div class="destination-load-error-icon">
+            ⚠️
+          </div>
+
+          <h3>
+            Unable to load destinations
+          </h3>
+
+          <p>
+            We couldn't load the destinations
+            right now. Please refresh the page
+            and try again.
+          </p>
+        </div>
+      `;
+
+    }
+
+  } finally {
+
+    // Remove loading screen whether
+    // the request succeeds or fails
+    hidePageLoader();
+
   }
 }
 
