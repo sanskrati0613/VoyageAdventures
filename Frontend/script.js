@@ -14,7 +14,7 @@
     11. Contact Modal
    ========================================================= */
 
-const API_BASE_URL = 'https://voyageadventures-backend.onrender.com';
+const API_BASE_URL = "https://voyageadventures-backend.onrender.com";
 
 function getImageUrl(imagePath) {
   if (!imagePath) {
@@ -136,64 +136,41 @@ function highlightCenterCard() {
 }
 
 async function loadTestimonials() {
+  const container = document.getElementById("testimonials-container");
 
-    const container =
-        document.getElementById(
-            'testimonials-container'
-        );
+  if (!container) {
+    return;
+  }
 
-    if (!container) {
-        return;
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/testimonials`);
+
+    if (!response.ok) {
+      throw new Error("Failed to fetch testimonials");
     }
 
-    try {
+    const testimonials = await response.json();
 
-        const response = await fetch(
-            `${API_BASE_URL}/api/testimonials`
-        );
+    container.innerHTML = "";
 
-        if (!response.ok) {
-            throw new Error(
-                'Failed to fetch testimonials'
-            );
-        }
-
-        const testimonials =
-            await response.json();
-
-
-        container.innerHTML = '';
-
-
-        if (
-            !testimonials.length
-        ) {
-
-            container.innerHTML = `
+    if (!testimonials.length) {
+      container.innerHTML = `
                 <p class="no-testimonials">
                     No testimonials available yet.
                 </p>
             `;
 
-            return;
-        }
+      return;
+    }
 
+    testimonials.forEach((testimonial) => {
+      const initial = testimonial.name.charAt(0).toUpperCase();
 
-        testimonials.forEach(
-            testimonial => {
+      const image =
+        testimonial.image ||
+        `https://placehold.co/60x60/d1d5db/374151?text=${initial}`;
 
-                const initial =
-                    testimonial.name
-                        .charAt(0)
-                        .toUpperCase();
-
-
-                const image =
-                    testimonial.image ||
-                    `https://placehold.co/60x60/d1d5db/374151?text=${initial}`;
-
-
-                container.innerHTML += `
+      container.innerHTML += `
 
                     <div class="testimonial-card">
 
@@ -225,132 +202,69 @@ async function loadTestimonials() {
                     </div>
 
                 `;
+    });
 
-            }
-        );
+    setupTestimonialCarousel();
+    setupTestimonialHighlight();
+  } catch (error) {
+    console.error("Failed to load testimonials:", error);
 
-        setupTestimonialCarousel();
-        setupTestimonialHighlight();
-
-
-    } catch (error) {
-
-        console.error(
-            'Failed to load testimonials:',
-            error
-        );
-
-        container.innerHTML = `
+    container.innerHTML = `
             <p class="no-testimonials">
                 Unable to load testimonials.
             </p>
         `;
-
-    }
+  }
 }
 
 function setupTestimonialCarousel() {
+  const container = document.getElementById("testimonials-container");
 
-    const container =
-        document.getElementById(
-            'testimonials-container'
-        );
+  if (!container) return;
 
-    if (!container) return;
+  const cards = container.querySelectorAll(".testimonial-card");
 
+  if (!cards.length) return;
 
-    const cards =
-        container.querySelectorAll(
-            '.testimonial-card'
-        );
+  function updateActiveCard() {
+    const containerRect = container.getBoundingClientRect();
 
+    const center = containerRect.left + containerRect.width / 2;
 
-    if (!cards.length) return;
+    let closestCard = null;
 
+    let closestDistance = Infinity;
 
-    function updateActiveCard() {
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
 
-        const containerRect =
-            container.getBoundingClientRect();
+      const cardCenter = rect.left + rect.width / 2;
 
-        const center =
-            containerRect.left +
-            containerRect.width / 2;
+      const distance = Math.abs(center - cardCenter);
 
+      if (distance < closestDistance) {
+        closestDistance = distance;
 
-        let closestCard = null;
+        closestCard = card;
+      }
+    });
 
-        let closestDistance =
-            Infinity;
+    cards.forEach((card) => {
+      card.classList.remove("active");
+    });
 
-
-        cards.forEach(card => {
-
-            const rect =
-                card.getBoundingClientRect();
-
-            const cardCenter =
-                rect.left +
-                rect.width / 2;
-
-            const distance =
-                Math.abs(
-                    center - cardCenter
-                );
-
-
-            if (
-                distance <
-                closestDistance
-            ) {
-
-                closestDistance =
-                    distance;
-
-                closestCard =
-                    card;
-
-            }
-
-        });
-
-
-        cards.forEach(card => {
-
-            card.classList.remove(
-                'active'
-            );
-
-        });
-
-
-        if (closestCard) {
-
-            closestCard.classList.add(
-                'active'
-            );
-
-        }
-
+    if (closestCard) {
+      closestCard.classList.add("active");
     }
+  }
 
+  container.addEventListener("scroll", updateActiveCard, {
+    passive: true,
+  });
 
-    container.addEventListener(
-        'scroll',
-        updateActiveCard,
-        {
-            passive: true
-        }
-    );
+  window.addEventListener("resize", updateActiveCard);
 
-
-    window.addEventListener(
-        'resize',
-        updateActiveCard
-    );
-
-
-    updateActiveCard();
+  updateActiveCard();
 }
 
 testimonialsContainer.addEventListener("scroll", highlightCenterCard);
@@ -435,9 +349,7 @@ const destinationData = {};
 // =========================================
 
 function hidePageLoader() {
-
-  const pageLoader =
-    document.getElementById("page-loader");
+  const pageLoader = document.getElementById("page-loader");
 
   if (pageLoader) {
     pageLoader.classList.add("hidden");
@@ -445,89 +357,56 @@ function hidePageLoader() {
 }
 
 async function loadDestinations() {
-
   try {
-
-    const response =
-      await fetch(
-        `${API_BASE_URL}/api/destinations`
-      );
+    const response = await fetch(`${API_BASE_URL}/api/destinations`);
 
     if (!response.ok) {
-      throw new Error(
-        "Failed to fetch destinations"
-      );
+      throw new Error("Failed to fetch destinations");
     }
 
-    const destinations =
-      await response.json();
+    const destinations = await response.json();
 
     destinations.forEach((destination) => {
-
-      const id =
-        destination.name.toLowerCase();
+      const id = destination.name.toLowerCase();
 
       destinationData[id] = {
-
         _id: destination._id,
 
         name: destination.name,
 
-        location:
-          `📍 ${destination.location}`,
+        location: `📍 ${destination.location}`,
 
-        image:
-          getImageUrl(destination.image),
+        image: getImageUrl(destination.image),
 
-        rating:
-          String(destination.rating),
+        rating: String(destination.rating),
 
-        price:
-          `₹${destination.price.toLocaleString("en-IN")}`,
+        price: `₹${destination.price.toLocaleString("en-IN")}`,
 
-        duration:
-          destination.duration,
+        duration: destination.duration,
 
-        bestTime:
-          destination.bestTime,
+        bestTime: destination.bestTime,
 
-        type:
-          destination.type,
+        type: destination.type,
 
-        description:
-          destination.description,
+        description: destination.description,
 
-        highlights:
-          destination.highlights,
+        highlights: destination.highlights,
 
-        departures:
-          destination.departures || []
+        departures: destination.departures || [],
       };
-
     });
 
     // Render all destinations
     renderDestinations(destinations);
 
-    console.log(
-      "Destinations loaded from MongoDB"
-    );
-
+    console.log("Destinations loaded from MongoDB");
   } catch (error) {
-
-    console.error(
-      "Failed to load destinations:",
-      error
-    );
+    console.error("Failed to load destinations:", error);
 
     // Show a user-friendly message
-    const container =
-      document.getElementById(
-        "destinations-grid"
-      );
+    const container = document.getElementById("destinations-grid");
 
     if (container) {
-
       container.innerHTML = `
         <div class="destination-load-error">
           <div class="destination-load-error-icon">
@@ -545,15 +424,11 @@ async function loadDestinations() {
           </p>
         </div>
       `;
-
     }
-
   } finally {
-
     // Remove loading screen whether
     // the request succeeds or fails
     hidePageLoader();
-
   }
 }
 
@@ -1020,7 +895,6 @@ bookingForm.addEventListener("submit", async (event) => {
 
   if (!selectedDeparture) {
     alert("Please select a departure date.");
-
     return;
   }
 
@@ -1029,7 +903,6 @@ bookingForm.addEventListener("submit", async (event) => {
 
   if (bookingTravelers > availableSeats) {
     alert(`Only ${availableSeats} seats are available for this departure.`);
-
     return;
   }
 
@@ -1038,84 +911,219 @@ bookingForm.addEventListener("submit", async (event) => {
   const basePrice = Number(destination.price.replace(/[₹,]/g, ""));
 
   const packageExtra = getPackageExtra();
-  const pricePerPerson = basePrice + packageExtra;
-  const totalPrice = pricePerPerson * bookingTravelers;
 
-  const bookingReference = "VA" + Date.now().toString().slice(-6);
+  const pricePerPerson = basePrice + packageExtra;
+
+  const totalPrice = pricePerPerson * bookingTravelers;
 
   const bookingData = {
     customerName: travelerName.value.trim(),
+
     customerEmail: travelerEmail.value.trim(),
+
     customerPhone: travelerPhone.value.trim(),
+
     specialRequest: specialRequest.value.trim(),
 
-    bookingReference,
     destination: destination.name,
+
     travelers: bookingTravelers,
+
     package: tripPackage.value,
-    destinationId: destinationData[currentDestination]._id,
+
+    destinationId: destination._id,
 
     departureId: selectedDeparture._id,
+
     pricePerPerson,
+
     totalPrice,
   };
 
-  // Show loading state
-  const confirmBookingButton = bookingForm.querySelector(
-    'button[type="submit"]',
-  );
+  // -----------------------------------------
+  // BUTTON LOADING STATE
+  // -----------------------------------------
 
-  confirmBookingButton.disabled = true;
-  confirmBookingButton.textContent = "Confirming...";
+  const payButton = bookingForm.querySelector('button[type="submit"]');
+
+  payButton.disabled = true;
+  payButton.textContent = "Preparing Payment...";
 
   const userToken = localStorage.getItem("userToken");
 
-const headers = {
+  const headers = {
     "Content-Type": "application/json",
-};
+  };
 
-if (userToken) {
+  if (userToken) {
     headers.Authorization = `Bearer ${userToken}`;
-}
+  }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/bookings`, {
-      method: "POST",
-      headers,
-      body: JSON.stringify(bookingData),
-    });
+    // -----------------------------------------
+    // STEP 1: CREATE RAZORPAY ORDER
+    // -----------------------------------------
 
-    const result = await response.json();
+    const orderResponse = await fetch(
+      `${API_BASE_URL}/api/bookings/create-payment-order`,
+      {
+        method: "POST",
+        headers,
+        body: JSON.stringify({
+          amount: totalPrice,
+        }),
+      },
+    );
 
-    if (!response.ok) {
-      if (result.availableSeats !== undefined) {
-        selectedDeparture.bookedSeats =
-          selectedDeparture.totalSeats - result.availableSeats;
+    const orderResult = await orderResponse.json();
 
-        departureAvailability.textContent = `${result.availableSeats} seat${
-          result.availableSeats === 1 ? "" : "s"
-        } available`;
-      }
-
-      throw new Error(result.message || "Booking could not be saved");
+    if (!orderResponse.ok) {
+      throw new Error(orderResult.message || "Unable to create payment order.");
     }
 
-    console.log("Booking saved successfully:", result);
+    const order = orderResult.order;
 
-    bookingReferenceNumber.textContent = bookingReference;
+    console.log("Razorpay order created:", order);
 
-    bookingModal.classList.remove("is-open");
-    bookingSuccess.classList.add("is-open");
+    // -----------------------------------------
+    // STEP 2: OPEN RAZORPAY CHECKOUT
+    // -----------------------------------------
+
+    const options = {
+      key: "rzp_test_TONeIIssNLO8d9",
+
+      amount: order.amount,
+
+      currency: order.currency,
+
+      name: "Voyage Adventures",
+
+      description: `${destination.name} - ${tripPackage.value} Package`,
+
+      order_id: order.id,
+
+      prefill: {
+        name: bookingData.customerName,
+
+        email: bookingData.customerEmail,
+
+        contact: bookingData.customerPhone,
+      },
+
+      theme: {
+        color: "#2563eb",
+      },
+
+      handler: async function (paymentResponse) {
+        console.log("Razorpay payment response:", paymentResponse);
+
+        // -----------------------------------------
+        // STEP 3: VERIFY PAYMENT
+        // -----------------------------------------
+
+        payButton.disabled = true;
+
+        payButton.textContent = "Verifying Payment...";
+
+        const verifyResponse = await fetch(
+          `${API_BASE_URL}/api/bookings/verify-payment`,
+          {
+            method: "POST",
+
+            headers,
+
+            body: JSON.stringify({
+              razorpayOrderId: paymentResponse.razorpay_order_id,
+
+              razorpayPaymentId: paymentResponse.razorpay_payment_id,
+
+              razorpaySignature: paymentResponse.razorpay_signature,
+            }),
+          },
+        );
+
+        const verifyResult = await verifyResponse.json();
+
+        if (!verifyResponse.ok || !verifyResult.verified) {
+          throw new Error(
+            verifyResult.message || "Payment verification failed.",
+          );
+        }
+
+        console.log("Payment verified successfully.");
+
+        // -----------------------------------------
+        // STEP 4: CREATE CONFIRMED BOOKING
+        // -----------------------------------------
+
+        const bookingResponse = await fetch(
+          `${API_BASE_URL}/api/bookings/confirm-paid-booking`,
+          {
+            method: "POST",
+
+            headers,
+
+            body: JSON.stringify({
+              ...bookingData,
+
+              razorpayOrderId: paymentResponse.razorpay_order_id,
+
+              razorpayPaymentId: paymentResponse.razorpay_payment_id,
+
+              razorpaySignature: paymentResponse.razorpay_signature,
+            }),
+          },
+        );
+
+        const bookingResult = await bookingResponse.json();
+
+        if (!bookingResponse.ok) {
+          throw new Error(
+            bookingResult.message ||
+              "Payment succeeded but booking confirmation failed.",
+          );
+        }
+
+        console.log("Booking confirmed:", bookingResult);
+
+        // -----------------------------------------
+        // SHOW SUCCESS
+        // -----------------------------------------
+
+        bookingReferenceNumber.textContent =
+          bookingResult.booking.bookingReference;
+
+        bookingModal.classList.remove("is-open");
+
+        bookingSuccess.classList.add("is-open");
+      },
+
+      modal: {
+        ondismiss: function () {
+          console.log("Razorpay checkout closed.");
+
+          payButton.disabled = false;
+
+          payButton.textContent = "Pay Now →";
+        },
+      },
+    };
+
+    // -----------------------------------------
+    // OPEN CHECKOUT
+    // -----------------------------------------
+
+    const razorpayCheckout = new Razorpay(options);
+
+    razorpayCheckout.open();
   } catch (error) {
-    console.error("Booking failed:", error);
+    console.error("Payment / booking failed:", error);
 
-    alert(
-      error.message || "Unable to complete your booking. Please try again.",
-    );
-  } finally {
-    confirmBookingButton.disabled = false;
+    alert(error.message || "Unable to complete payment. Please try again.");
 
-    confirmBookingButton.textContent = "Confirm Booking →";
+    payButton.disabled = false;
+
+    payButton.textContent = "Pay Now →";
   }
 });
 
@@ -1294,7 +1302,7 @@ contactForm.addEventListener("submit", async (event) => {
   submitButton.textContent = "Sending...";
 
   try {
-    const response = await fetch("http://localhost:5000/api/contact", {
+    const response = await fetch(`${API_BASE_URL}/api/contact`, {
       method: "POST",
 
       headers: {
@@ -1332,79 +1340,47 @@ contactForm.addEventListener("submit", async (event) => {
 });
 
 function setupTestimonialHighlight() {
+  const container = document.getElementById("testimonials-container");
 
-    const container =
-        document.getElementById(
-            'testimonials-container'
-        );
+  if (!container) return;
 
-    if (!container) return;
+  const cards = container.querySelectorAll(".testimonial-card");
 
-    const cards =
-        container.querySelectorAll(
-            '.testimonial-card'
-        );
+  function updateHighlight() {
+    const containerRect = container.getBoundingClientRect();
 
-    function updateHighlight() {
+    const containerCenter = containerRect.left + containerRect.width / 2;
 
-        const containerRect =
-            container.getBoundingClientRect();
+    let closestCard = null;
+    let closestDistance = Infinity;
 
-        const containerCenter =
-            containerRect.left +
-            containerRect.width / 2;
+    cards.forEach((card) => {
+      const rect = card.getBoundingClientRect();
 
-        let closestCard = null;
-        let closestDistance = Infinity;
+      const cardCenter = rect.left + rect.width / 2;
 
-        cards.forEach(card => {
+      const distance = Math.abs(containerCenter - cardCenter);
 
-            const rect =
-                card.getBoundingClientRect();
+      if (distance < closestDistance) {
+        closestDistance = distance;
+        closestCard = card;
+      }
+    });
 
-            const cardCenter =
-                rect.left +
-                rect.width / 2;
+    cards.forEach((card) => {
+      card.classList.remove("active");
+    });
 
-            const distance =
-                Math.abs(
-                    containerCenter -
-                    cardCenter
-                );
-
-            if (distance < closestDistance) {
-
-                closestDistance = distance;
-                closestCard = card;
-
-            }
-
-        });
-
-
-        cards.forEach(card => {
-            card.classList.remove('active');
-        });
-
-
-        if (closestCard) {
-            closestCard.classList.add('active');
-        }
-
+    if (closestCard) {
+      closestCard.classList.add("active");
     }
+  }
 
+  container.addEventListener("scroll", updateHighlight);
 
-    container.addEventListener(
-        'scroll',
-        updateHighlight
-    );
+  window.addEventListener("resize", updateHighlight);
 
-    window.addEventListener(
-        'resize',
-        updateHighlight
-    );
-
-    updateHighlight();
+  updateHighlight();
 }
 
 // =========================================
@@ -1415,20 +1391,19 @@ const profileButton = document.getElementById("profile-button");
 const profileDropdown = document.getElementById("profile-dropdown");
 
 if (profileButton && profileDropdown) {
+  profileButton.addEventListener("click", (event) => {
+    event.stopPropagation();
+    profileDropdown.classList.toggle("show");
+  });
 
-    profileButton.addEventListener("click", (event) => {
-        event.stopPropagation();
-        profileDropdown.classList.toggle("show");
-    });
-
-    document.addEventListener("click", (event) => {
-        if (
-            !profileDropdown.contains(event.target) &&
-            !profileButton.contains(event.target)
-        ) {
-            profileDropdown.classList.remove("show");
-        }
-    });
+  document.addEventListener("click", (event) => {
+    if (
+      !profileDropdown.contains(event.target) &&
+      !profileButton.contains(event.target)
+    ) {
+      profileDropdown.classList.remove("show");
+    }
+  });
 }
 
 // =========================================
@@ -1449,69 +1424,65 @@ const showRegister = document.getElementById("show-register");
 const showLogin = document.getElementById("show-login");
 
 function openAuthModal(view = "login") {
+  if (!authModal) return;
 
-    if (!authModal) return;
+  authModal.classList.add("show");
 
-    authModal.classList.add("show");
-
-    if (view === "register") {
-        loginView.style.display = "none";
-        registerView.style.display = "block";
-    } else {
-        loginView.style.display = "block";
-        registerView.style.display = "none";
-    }
+  if (view === "register") {
+    loginView.style.display = "none";
+    registerView.style.display = "block";
+  } else {
+    loginView.style.display = "block";
+    registerView.style.display = "none";
+  }
 }
 
 function closeAuth() {
+  if (!authModal) return;
 
-    if (!authModal) return;
-
-    authModal.classList.remove("show");
+  authModal.classList.remove("show");
 }
 
 if (loginOption) {
-    loginOption.addEventListener("click", () => {
-        openAuthModal("login");
-    });
+  loginOption.addEventListener("click", () => {
+    openAuthModal("login");
+  });
 }
 
 if (registerOption) {
-    registerOption.addEventListener("click", () => {
-        openAuthModal("register");
-    });
+  registerOption.addEventListener("click", () => {
+    openAuthModal("register");
+  });
 }
 
 if (showRegister) {
-    showRegister.addEventListener("click", () => {
-        openAuthModal("register");
-    });
+  showRegister.addEventListener("click", () => {
+    openAuthModal("register");
+  });
 }
 
 if (showLogin) {
-    showLogin.addEventListener("click", () => {
-        openAuthModal("login");
-    });
+  showLogin.addEventListener("click", () => {
+    openAuthModal("login");
+  });
 }
 
 if (closeAuth) {
-    closeAuthModal.addEventListener("click", closeAuth);
+  closeAuthModal.addEventListener("click", closeAuth);
 }
 
 if (authModalOverlay) {
-    authModalOverlay.addEventListener("click", closeAuth);
+  authModalOverlay.addEventListener("click", closeAuth);
 }
 
 document.addEventListener("keydown", (event) => {
-
-    if (
-        event.key === "Escape" &&
-        authModal &&
-        authModal.classList.contains("show")
-    ) {
-        closeAuth();
-    }
-
+  if (
+    event.key === "Escape" &&
+    authModal &&
+    authModal.classList.contains("show")
+  ) {
+    closeAuth();
+  }
 });
 
 // =========================================
@@ -1521,97 +1492,72 @@ document.addEventListener("keydown", (event) => {
 const loginForm = document.getElementById("login-form");
 
 if (loginForm) {
+  loginForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-    loginForm.addEventListener("submit", async (event) => {
+    const username = document.getElementById("login-username").value.trim();
 
-        event.preventDefault();
+    const password = document.getElementById("login-password").value;
 
-        const username =
-            document.getElementById("login-username").value.trim();
+    const loginError = document.getElementById("login-error");
 
-        const password =
-            document.getElementById("login-password").value;
+    loginError.textContent = "";
 
-        const loginError =
-            document.getElementById("login-error");
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/users/login`, {
+        method: "POST",
 
-        loginError.textContent = "";
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-        try {
+        body: JSON.stringify({
+          username,
+          password,
+        }),
+      });
 
-            const response = await fetch(
-                `${API_BASE_URL}/api/users/login`,
-                {
-                    method: "POST",
+      const data = await response.json();
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+      if (!response.ok) {
+        throw new Error(data.message || "Login failed.");
+      }
 
-                    body: JSON.stringify({
-                        username,
-                        password
-                    })
-                }
-            );
+      // =========================================
+      // ADMIN
+      // =========================================
 
-            const data = await response.json();
+      if (data.role === "admin") {
+        localStorage.setItem("adminToken", data.token);
 
-            if (!response.ok) {
-                throw new Error(
-                    data.message || "Login failed."
-                );
-            }
+        window.location.href = "admin.html";
 
-            // =========================================
-            // ADMIN
-            // =========================================
+        return;
+      }
 
-            if (data.role === "admin") {
+      // =========================================
+      // NORMAL USER
+      // =========================================
 
-                localStorage.setItem(
-                    "adminToken",
-                    data.token
-                );
+      if (data.role === "user") {
+        localStorage.setItem("userToken", data.token);
 
-                window.location.href = "admin.html";
+        localStorage.setItem("userData", JSON.stringify(data.user));
 
-                return;
-            }
+        closeAuth();
 
-            // =========================================
-            // NORMAL USER
-            // =========================================
+        updateProfileUI();
 
-            if (data.role === "user") {
+        return;
+      }
 
-                localStorage.setItem(
-                    "userToken",
-                    data.token
-                );
+      throw new Error("Unknown account type.");
+    } catch (error) {
+      console.error("Login failed:", error);
 
-                localStorage.setItem(
-                    "userData",
-                    JSON.stringify(data.user)
-                );
-
-                closeAuth();
-
-                updateProfileUI();
-
-                return;
-            }
-
-            throw new Error("Unknown account type.");
-
-        } catch (error) {
-
-            console.error("Login failed:", error);
-
-            loginError.textContent =
-                error.message || "Unable to login.";
-        }
-    });
+      loginError.textContent = error.message || "Unable to login.";
+    }
+  });
 }
 
 // =========================================
@@ -1621,85 +1567,65 @@ if (loginForm) {
 const registerForm = document.getElementById("register-form");
 
 if (registerForm) {
+  registerForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
 
-    registerForm.addEventListener("submit", async (event) => {
+    const name = document.getElementById("register-name").value.trim();
 
-        event.preventDefault();
+    const username = document.getElementById("register-username").value.trim();
 
-        const name =
-            document.getElementById("register-name").value.trim();
+    const email = document.getElementById("register-email").value.trim();
 
-        const username =
-            document.getElementById("register-username").value.trim();
+    const phone = document.getElementById("register-phone").value.trim();
 
-        const email =
-            document.getElementById("register-email").value.trim();
+    const password = document.getElementById("register-password").value;
 
-        const phone =
-            document.getElementById("register-phone").value.trim();
+    const confirmPassword = document.getElementById(
+      "register-confirm-password",
+    ).value;
 
-        const password =
-            document.getElementById("register-password").value;
+    const registerError = document.getElementById("register-error");
 
-        const confirmPassword =
-            document.getElementById("register-confirm-password").value;
+    registerError.textContent = "";
 
-        const registerError =
-            document.getElementById("register-error");
+    try {
+      const response = await fetch(`${API_BASE_URL}/api/users/register`, {
+        method: "POST",
 
-        registerError.textContent = "";
+        headers: {
+          "Content-Type": "application/json",
+        },
 
-        try {
+        body: JSON.stringify({
+          name,
+          username,
+          email,
+          phone,
+          password,
+          confirmPassword,
+        }),
+      });
 
-            const response = await fetch(
-                `${API_BASE_URL}/api/users/register`,
-                {
-                    method: "POST",
+      const data = await response.json();
 
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
+      if (!response.ok) {
+        throw new Error(data.message || "Unable to create account.");
+      }
 
-                    body: JSON.stringify({
-                        name,
-                        username,
-                        email,
-                        phone,
-                        password,
-                        confirmPassword
-                    })
-                }
-            );
+      // Registration successful
+      alert("Account created successfully.");
 
-            const data = await response.json();
+      // Clear form
+      registerForm.reset();
 
-            if (!response.ok) {
-                throw new Error(
-                    data.message || "Unable to create account."
-                );
-            }
+      // Open login
+      openAuthModal("login");
+    } catch (error) {
+      console.error("Registration failed:", error);
 
-            // Registration successful
-            alert("Account created successfully.");
-
-            // Clear form
-            registerForm.reset();
-
-            // Open login
-            openAuthModal("login");
-
-        } catch (error) {
-
-            console.error(
-                "Registration failed:",
-                error
-            );
-
-            registerError.textContent =
-                error.message ||
-                "Unable to create account.";
-        }
-    });
+      registerError.textContent = error.message || "Unable to create account.";
+    }
+  });
 }
 
 // =========================================
@@ -1707,35 +1633,29 @@ if (registerForm) {
 // =========================================
 
 function updateProfileUI() {
+  const profileButton = document.getElementById("profile-button");
 
-    const profileButton =
-        document.getElementById("profile-button");
+  const profileDropdown = document.getElementById("profile-dropdown");
 
-    const profileDropdown =
-        document.getElementById("profile-dropdown");
+  if (!profileButton || !profileDropdown) {
+    return;
+  }
 
-    if (!profileButton || !profileDropdown) {
-        return;
-    }
+  const userToken = localStorage.getItem("userToken");
 
-    const userToken =
-        localStorage.getItem("userToken");
+  const userData = localStorage.getItem("userData");
 
-    const userData =
-        localStorage.getItem("userData");
+  // =========================================
+  // LOGGED OUT
+  // =========================================
 
-    // =========================================
-    // LOGGED OUT
-    // =========================================
-
-    if (!userToken || !userData) {
-
-        profileButton.innerHTML = `
+  if (!userToken || !userData) {
+    profileButton.innerHTML = `
             <span class="profile-icon">👤</span>
             <span>Profile</span>
         `;
 
-        profileDropdown.innerHTML = `
+    profileDropdown.innerHTML = `
             <button id="login-option" type="button">
                 Login
             </button>
@@ -1745,23 +1665,23 @@ function updateProfileUI() {
             </button>
         `;
 
-        attachProfileActions();
+    attachProfileActions();
 
-        return;
-    }
+    return;
+  }
 
-    // =========================================
-    // LOGGED IN USER
-    // =========================================
+  // =========================================
+  // LOGGED IN USER
+  // =========================================
 
-    const user = JSON.parse(userData);
+  const user = JSON.parse(userData);
 
-    profileButton.innerHTML = `
+  profileButton.innerHTML = `
         <span class="profile-icon">👤</span>
         <span>${user.username}</span>
     `;
 
-    profileDropdown.innerHTML = `
+  profileDropdown.innerHTML = `
         <button id="profile-option" type="button">
             My Profile
         </button>
@@ -1775,74 +1695,58 @@ function updateProfileUI() {
         </button>
     `;
 
-    attachLoggedInProfileActions();
+  attachLoggedInProfileActions();
 }
 
 function attachProfileActions() {
+  const loginOption = document.getElementById("login-option");
 
-    const loginOption =
-        document.getElementById("login-option");
+  const registerOption = document.getElementById("register-option");
 
-    const registerOption =
-        document.getElementById("register-option");
+  if (loginOption) {
+    loginOption.addEventListener("click", () => {
+      openAuthModal("login");
+    });
+  }
 
-    if (loginOption) {
-        loginOption.addEventListener("click", () => {
-            openAuthModal("login");
-        });
-    }
-
-    if (registerOption) {
-        registerOption.addEventListener("click", () => {
-            openAuthModal("register");
-        });
-    }
+  if (registerOption) {
+    registerOption.addEventListener("click", () => {
+      openAuthModal("register");
+    });
+  }
 }
 
 function attachLoggedInProfileActions() {
+  const profileOption = document.getElementById("profile-option");
 
-    const profileOption =
-        document.getElementById("profile-option");
+  const bookingsOption = document.getElementById("my-bookings-option");
 
-    const bookingsOption =
-        document.getElementById("my-bookings-option");
+  const logoutOption = document.getElementById("logout-option");
 
-    const logoutOption =
-        document.getElementById("logout-option");
-
-    if (profileOption) {
-
+  if (profileOption) {
     profileOption.addEventListener("click", () => {
+      profileDropdown.classList.remove("show");
 
-        profileDropdown.classList.remove("show");
-
-        openProfileModal();
-
+      openProfileModal();
     });
+  }
 
-}
+  if (bookingsOption) {
+    bookingsOption.addEventListener("click", () => {
+      window.location.href = "my-bookings.html";
+    });
+  }
 
-    if (bookingsOption) {
+  if (logoutOption) {
+    logoutOption.addEventListener("click", () => {
+      localStorage.removeItem("userToken");
+      localStorage.removeItem("userData");
 
-        bookingsOption.addEventListener("click", () => {
+      updateProfileUI();
 
-            window.location.href = "my-bookings.html";
-
-        });
-    }
-
-    if (logoutOption) {
-
-        logoutOption.addEventListener("click", () => {
-
-            localStorage.removeItem("userToken");
-            localStorage.removeItem("userData");
-
-            updateProfileUI();
-
-            profileDropdown.classList.remove("show");
-        });
-    }
+      profileDropdown.classList.remove("show");
+    });
+  }
 }
 
 updateProfileUI();
@@ -1851,64 +1755,50 @@ updateProfileUI();
 // USER PROFILE MODAL
 // =========================================
 
-const profileModal =
-    document.getElementById("profile-modal");
+const profileModal = document.getElementById("profile-modal");
 
-const closeProfileModal =
-    document.getElementById("close-profile-modal");
+const closeProfileModal = document.getElementById("close-profile-modal");
 
-const profileModalOverlay =
-    document.querySelector(".profile-modal-overlay");
+const profileModalOverlay = document.querySelector(".profile-modal-overlay");
 
 function openProfileModal() {
+  const userData = localStorage.getItem("userData");
 
-    const userData =
-        localStorage.getItem("userData");
+  if (!userData) {
+    return;
+  }
 
-    if (!userData) {
-        return;
-    }
+  const user = JSON.parse(userData);
 
-    const user = JSON.parse(userData);
+  document.getElementById("profile-name").textContent =
+    user.name || "Not available";
 
-    document.getElementById("profile-name").textContent =
-        user.name || "Not available";
+  document.getElementById("profile-username").textContent =
+    user.username || "Not available";
 
-    document.getElementById("profile-username").textContent =
-        user.username || "Not available";
+  document.getElementById("profile-email").textContent =
+    user.email || "Not available";
 
-    document.getElementById("profile-email").textContent =
-        user.email || "Not available";
+  document.getElementById("profile-phone").textContent =
+    user.phone || "Not available";
 
-    document.getElementById("profile-phone").textContent =
-        user.phone || "Not available";
-
-    profileModal.classList.add("show");
+  profileModal.classList.add("show");
 }
 
 function closeProfileModalWindow() {
-
-    if (profileModal) {
-        profileModal.classList.remove("show");
-    }
+  if (profileModal) {
+    profileModal.classList.remove("show");
+  }
 }
 
 if (closeProfileModal) {
-
-    closeProfileModal.addEventListener(
-        "click",
-        closeProfileModalWindow
-    );
+  closeProfileModal.addEventListener("click", closeProfileModalWindow);
 }
 
 if (profileModalOverlay) {
-
-    profileModalOverlay.addEventListener(
-        "click",
-        closeProfileModalWindow
-    );
+  profileModalOverlay.addEventListener("click", closeProfileModalWindow);
 }
 
-document.addEventListener('DOMContentLoaded', () => {
-    loadTestimonials();
+document.addEventListener("DOMContentLoaded", () => {
+  loadTestimonials();
 });

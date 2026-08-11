@@ -118,32 +118,28 @@
 
         <section class="admin-section">
 
-    <div class="section-header">
+            <div class="section-header">
 
-        <div>
-            <h2>Testimonials</h2>
-            <p>
-                Manage customer testimonials displayed on Voyage Adventures.
-            </p>
-        </div>
+                <div>
+                    <h2>Testimonials</h2>
+                    <p>
+                        Manage customer testimonials displayed on Voyage Adventures.
+                    </p>
+                </div>
 
-        <button
-            id="add-testimonial-button"
-            class="primary-button">
-            + Add Testimonial
-        </button>
+                <button id="add-testimonial-button" class="primary-button">
+                    + Add Testimonial
+                </button>
 
-    </div>
+            </div>
 
-    <div
-        id="testimonials-admin-container"
-        class="destinations-container">
+            <div id="testimonials-admin-container" class="destinations-container">
 
-        <p>Loading testimonials...</p>
+                <p>Loading testimonials...</p>
 
-    </div>
+            </div>
 
-</section>
+        </section>
 
         <section class="admin-section">
 
@@ -377,120 +373,91 @@
 
     </div>
 
-    <div
-    id="testimonial-modal"
-    class="destination-modal">
+    <div id="testimonial-modal" class="destination-modal">
 
-    <div class="destination-modal-content">
+        <div class="destination-modal-content">
 
-        <button
-            type="button"
-            id="close-testimonial-modal"
-            class="close-modal">
-            ×
-        </button>
-
-        <h2 id="testimonial-modal-title">
-            Add Testimonial
-        </h2>
-
-        <form id="testimonial-form">
-
-            <input
-                type="hidden"
-                id="testimonial-id">
-
-            <div class="form-group">
-
-                <label for="testimonial-name">
-                    Name
-                </label>
-
-                <input
-                    type="text"
-                    id="testimonial-name"
-                    required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="testimonial-role">
-                    Role
-                </label>
-
-                <input
-                    type="text"
-                    id="testimonial-role"
-                    placeholder="e.g. Explorer"
-                    required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="testimonial-rating">
-                    Rating
-                </label>
-
-                <input
-                    type="number"
-                    id="testimonial-rating"
-                    min="1"
-                    max="5"
-                    step="1"
-                    value="5"
-                    required>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="testimonial-image">
-                    Image URL
-                </label>
-
-                <input
-                    type="text"
-                    id="testimonial-image"
-                    placeholder="https://example.com/photo.jpg">
-
-                <small>
-                    Optional. A placeholder will be used if empty.
-                </small>
-
-            </div>
-
-
-            <div class="form-group">
-
-                <label for="testimonial-review">
-                    Review
-                </label>
-
-                <textarea
-                    id="testimonial-review"
-                    rows="5"
-                    required>
-                </textarea>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="primary-button">
-                Save Testimonial
+            <button type="button" id="close-testimonial-modal" class="close-modal">
+                ×
             </button>
 
-        </form>
+            <h2 id="testimonial-modal-title">
+                Add Testimonial
+            </h2>
+
+            <form id="testimonial-form">
+
+                <input type="hidden" id="testimonial-id">
+
+                <div class="form-group">
+
+                    <label for="testimonial-name">
+                        Name
+                    </label>
+
+                    <input type="text" id="testimonial-name" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="testimonial-role">
+                        Role
+                    </label>
+
+                    <input type="text" id="testimonial-role" placeholder="e.g. Explorer" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="testimonial-rating">
+                        Rating
+                    </label>
+
+                    <input type="number" id="testimonial-rating" min="1" max="5" step="1" value="5" required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="testimonial-image">
+                        Image URL
+                    </label>
+
+                    <input type="text" id="testimonial-image" placeholder="https://example.com/photo.jpg">
+
+                    <small>
+                        Optional. A placeholder will be used if empty.
+                    </small>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="testimonial-review">
+                        Review
+                    </label>
+
+                    <textarea id="testimonial-review" rows="5" required>
+                </textarea>
+
+                </div>
+
+
+                <button type="submit" class="primary-button">
+                    Save Testimonial
+                </button>
+
+            </form>
+
+        </div>
 
     </div>
-
-</div>
 
     <script src="admin.js"></script>
 

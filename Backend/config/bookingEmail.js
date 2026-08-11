@@ -1,45 +1,44 @@
-const transporter = require('./mail');
+const transporter = require("./mail");
 
 async function sendBookingEmail(booking, type) {
+  let subject;
+  let title;
+  let message;
 
-    let subject;
-    let title;
-    let message;
-
-    if (type === 'created') {
-        subject = `Booking Request Received - ${booking.bookingReference}`;
-        title = 'Booking Request Received';
-        message = `
+  if (type === "created") {
+    subject = `Booking Request Received - ${booking.bookingReference}`;
+    title = "Booking Request Received";
+    message = `
             Thank you for choosing Voyage Adventures.
             We have received your booking request and it is
             currently awaiting confirmation.
         `;
-    }
+  }
 
-    if (type === 'confirmed') {
-        subject = `Booking Confirmed - ${booking.bookingReference}`;
-        title = 'Booking Confirmed!';
-        message = `
+  if (type === "confirmed") {
+    subject = `Booking Confirmed - ${booking.bookingReference}`;
+    title = "Booking Confirmed!";
+    message = `
             Great news! Your Voyage Adventures booking has
             been confirmed.
         `;
-    }
+  }
 
-    if (type === 'cancelled') {
-        subject = `Booking Cancelled - ${booking.bookingReference}`;
-        title = 'Booking Cancelled';
-        message = `
+  if (type === "cancelled") {
+    subject = `Booking Cancelled - ${booking.bookingReference}`;
+    title = "Booking Cancelled";
+    message = `
             Your Voyage Adventures booking has been cancelled.
             Please contact us if you have any questions.
         `;
-    }
+  }
 
-    const mailOptions = {
-        from: `"Voyage Adventures" <${process.env.EMAIL_USER}>`,
-        to: booking.customerEmail,
-        subject,
+  const mailOptions = {
+    from: `"Voyage Adventures" <${process.env.EMAIL_USER}>`,
+    to: booking.customerEmail,
+    subject,
 
-        html: `
+    html: `
             <div style="
                 font-family: Arial, sans-serif;
                 max-width: 650px;
@@ -81,22 +80,22 @@ async function sendBookingEmail(booking, type) {
 
                 <p>
                     <strong>Start Date:</strong>
-                    ${booking.startDate.toISOString().split('T')[0]}
+                    ${booking.startDate.toISOString().split("T")[0]}
                 </p>
 
                 <p>
                     <strong>End Date:</strong>
-                    ${booking.endDate.toISOString().split('T')[0]}
+                    ${booking.endDate.toISOString().split("T")[0]}
                 </p>
 
                 <p>
                     <strong>Price per Person:</strong>
-                    ₹${booking.pricePerPerson.toLocaleString('en-IN')}
+                    ₹${booking.pricePerPerson.toLocaleString("en-IN")}
                 </p>
 
                 <p>
                     <strong>Total Price:</strong>
-                    ₹${booking.totalPrice.toLocaleString('en-IN')}
+                    ₹${booking.totalPrice.toLocaleString("en-IN")}
                 </p>
 
                 <p>
@@ -107,7 +106,7 @@ async function sendBookingEmail(booking, type) {
                 <h3>Special Request</h3>
 
                 <p>
-                    ${booking.specialRequest || 'None'}
+                    ${booking.specialRequest || "None"}
                 </p>
 
                 <hr>
@@ -122,10 +121,10 @@ async function sendBookingEmail(booking, type) {
                 </p>
 
             </div>
-        `
-    };
+        `,
+  };
 
-    await transporter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions);
 }
 
 module.exports = sendBookingEmail;

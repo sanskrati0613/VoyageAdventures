@@ -12,16 +12,19 @@ loginForm.addEventListener("submit", async (event) => {
   loginError.textContent = "";
 
   try {
-    const response = await fetch("https://voyageadventures-backend.onrender.com/api/admin/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    const response = await fetch(
+      "https://voyageadventures-backend.onrender.com/api/admin/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          username: usernameInput.value.trim(),
+          password: passwordInput.value,
+        }),
       },
-      body: JSON.stringify({
-        username: usernameInput.value.trim(),
-        password: passwordInput.value,
-      }),
-    });
+    );
 
     const data = await response.json();
 

@@ -1234,53 +1234,53 @@ body {
 }
 
 .testimonial-admin-card {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    padding: 20px;
-    margin-bottom: 16px;
-    background: #fff;
-    border: 1px solid #e5e7eb;
-    border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  margin-bottom: 16px;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
 }
 
 .testimonial-admin-image img {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    object-fit: cover;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .testimonial-admin-content {
-    flex: 1;
+  flex: 1;
 }
 
 .testimonial-admin-rating {
-    margin-bottom: 6px;
+  margin-bottom: 6px;
 }
 
 .testimonial-admin-review {
-    margin: 0 0 10px;
-    line-height: 1.5;
+  margin: 0 0 10px;
+  line-height: 1.5;
 }
 
 .testimonial-admin-content strong {
-    display: block;
+  display: block;
 }
 
 .testimonial-admin-content span {
-    color: #6b7280;
-    font-size: 14px;
+  color: #6b7280;
+  font-size: 14px;
 }
 
 .testimonial-admin-actions {
-    display: flex;
-    gap: 8px;
+  display: flex;
+  gap: 8px;
 }
 
 .testimonial-admin-actions button {
-    padding: 8px 14px;
-    border: none;
-    border-radius: 6px;
-    cursor: pointer;
+  padding: 8px 14px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
 }

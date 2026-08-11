@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const bookingSchema = new mongoose.Schema(
   {
@@ -65,32 +65,49 @@ const bookingSchema = new mongoose.Schema(
     },
 
     specialRequest: {
-    type: String,
-    default: '',
-    trim: true
+      type: String,
+      default: "",
+      trim: true,
     },
 
     status: {
-    type: String,
-    enum: ['Pending', 'Confirmed', 'Cancelled'],
-    default: 'Pending'
+      type: String,
+      enum: ["Pending", "Confirmed", "Cancelled"],
+      default: "Pending",
     },
 
     departureId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true
-},
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+    },
 
-userId: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
-    required: false
-},
+    userId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+      required: false,
+    },
 
+    paymentStatus: {
+      type: String,
+      enum: ["paid", "failed"],
+      default: "paid",
+    },
+
+    razorpayOrderId: {
+      type: String,
+    },
+
+    razorpayPaymentId: {
+      type: String,
+    },
+
+    razorpaySignature: {
+      type: String,
+    },
   },
   {
     timestamps: true,
   },
 );
 
-module.exports = mongoose.model('Booking', bookingSchema);
+module.exports = mongoose.model("Booking", bookingSchema);

@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://voyageadventures-backend.onrender.com';
+const API_BASE_URL = "https://voyageadventures-backend.onrender.com";
 const adminToken = localStorage.getItem("adminToken");
 
 if (!adminToken) {
@@ -257,12 +257,9 @@ async function deleteContactMessage(id) {
   }
 
   try {
-    const response = await adminFetch(
-      `${API_BASE_URL}/api/contact/${id}`,
-      {
-        method: "DELETE",
-      },
-    );
+    const response = await adminFetch(`${API_BASE_URL}/api/contact/${id}`, {
+      method: "DELETE",
+    });
 
     const result = await response.json();
 
@@ -841,9 +838,7 @@ function attachDestinationEvents() {
 
 async function editDestination(id) {
   try {
-    const response = await adminFetch(
-      `${API_BASE_URL}/api/destinations/${id}`,
-    );
+    const response = await adminFetch(`${API_BASE_URL}/api/destinations/${id}`);
 
     if (!response.ok) {
       throw new Error("Failed to load destination");
@@ -1290,9 +1285,7 @@ async function updateBookingStatus(id, status) {
 
 async function viewBookingDetails(id) {
   try {
-    const response = await adminFetch(
-      `${API_BASE_URL}/api/bookings/${id}`,
-    );
+    const response = await adminFetch(`${API_BASE_URL}/api/bookings/${id}`);
 
     if (!response.ok) {
       throw new Error("Failed to load booking");
@@ -1474,107 +1467,68 @@ loadContactMessages();
 // TESTIMONIALS
 // =========================================================
 
-const testimonialsAdminContainer =
-    document.getElementById(
-        'testimonials-admin-container'
-    );
+const testimonialsAdminContainer = document.getElementById(
+  "testimonials-admin-container",
+);
 
-const addTestimonialButton =
-    document.getElementById(
-        'add-testimonial-button'
-    );
+const addTestimonialButton = document.getElementById("add-testimonial-button");
 
-const testimonialModal =
-    document.getElementById(
-        'testimonial-modal'
-    );
+const testimonialModal = document.getElementById("testimonial-modal");
 
-const closeTestimonialModal =
-    document.getElementById(
-        'close-testimonial-modal'
-    );
+const closeTestimonialModal = document.getElementById(
+  "close-testimonial-modal",
+);
 
-const testimonialForm =
-    document.getElementById(
-        'testimonial-form'
-    );
+const testimonialForm = document.getElementById("testimonial-form");
 
-const testimonialModalTitle =
-    document.getElementById(
-        'testimonial-modal-title'
-    );
-
+const testimonialModalTitle = document.getElementById(
+  "testimonial-modal-title",
+);
 
 // =========================================================
 // LOAD TESTIMONIALS
 // =========================================================
 
 async function loadTestimonialsAdmin() {
+  if (!testimonialsAdminContainer) {
+    return;
+  }
 
-    if (!testimonialsAdminContainer) {
-        return;
+  try {
+    const response = await adminFetch(`${API_BASE_URL}/api/testimonials`);
+
+    const testimonials = await response.json();
+
+    if (!response.ok) {
+      throw new Error(testimonials.message || "Failed to load testimonials");
     }
 
-    try {
+    testimonialsAdminContainer.innerHTML = "";
 
-        const response = await adminFetch(
-            `${API_BASE_URL}/api/testimonials`
-        );
-
-        const testimonials =
-            await response.json();
-
-        if (!response.ok) {
-
-            throw new Error(
-                testimonials.message ||
-                'Failed to load testimonials'
-            );
-
-        }
-
-
-        testimonialsAdminContainer.innerHTML = '';
-
-
-        if (!testimonials.length) {
-
-            testimonialsAdminContainer.innerHTML = `
+    if (!testimonials.length) {
+      testimonialsAdminContainer.innerHTML = `
                 <p class="empty-state">
                     No testimonials added yet.
                 </p>
             `;
 
-            return;
-        }
+      return;
+    }
 
+    testimonials.forEach((testimonial) => {
+      const stars = "⭐".repeat(testimonial.rating || 5);
 
-        testimonials.forEach(
-            testimonial => {
+      const image =
+        testimonial.image ||
+        `https://placehold.co/60x60/d1d5db/374151?text=${testimonial.name
+          .charAt(0)
+          .toUpperCase()}`;
 
-                const stars =
-                    '⭐'.repeat(
-                        testimonial.rating || 5
-                    );
+      const card = document.createElement("div");
 
+      card.className = "testimonial-admin-card";
 
-                const image =
-                    testimonial.image ||
-                    `https://placehold.co/60x60/d1d5db/374151?text=${
-                        testimonial.name
-                            .charAt(0)
-                            .toUpperCase()
-                    }`;
-
-
-                const card =
-                    document.createElement('div');
-
-                card.className =
-                    'testimonial-admin-card';
-
-
-                card.innerHTML = `
+      card.innerHTML = `
 
                     <div class="testimonial-admin-image">
 
@@ -1622,30 +1576,17 @@ async function loadTestimonialsAdmin() {
 
                 `;
 
+      testimonialsAdminContainer.appendChild(card);
+    });
+  } catch (error) {
+    console.error("Failed to load testimonials:", error);
 
-                testimonialsAdminContainer.appendChild(
-                    card
-                );
-
-            }
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            'Failed to load testimonials:',
-            error
-        );
-
-        testimonialsAdminContainer.innerHTML = `
+    testimonialsAdminContainer.innerHTML = `
             <p>
                 Failed to load testimonials.
             </p>
         `;
-
-    }
-
+  }
 }
 
 // =========================================================
@@ -1653,368 +1594,176 @@ async function loadTestimonialsAdmin() {
 // =========================================================
 
 function openAddTestimonialModal() {
+  testimonialForm.reset();
 
-    testimonialForm.reset();
+  document.getElementById("testimonial-id").value = "";
 
-    document.getElementById(
-        'testimonial-id'
-    ).value = '';
+  document.getElementById("testimonial-rating").value = 5;
 
-    document.getElementById(
-        'testimonial-rating'
-    ).value = 5;
+  testimonialModalTitle.textContent = "Add Testimonial";
 
-    testimonialModalTitle.textContent =
-        'Add Testimonial';
-
-    testimonialModal.classList.add(
-        'active'
-    );
-
+  testimonialModal.classList.add("active");
 }
-
 
 // =========================================================
 // OPEN EDIT MODAL
 // =========================================================
 
 async function openEditTestimonialModal(id) {
+  try {
+    const response = await adminFetch(`${API_BASE_URL}/api/testimonials`);
 
-    try {
+    const testimonials = await response.json();
 
-        const response = await adminFetch(
-            `${API_BASE_URL}/api/testimonials`
-        );
+    const testimonial = testimonials.find((item) => item._id === id);
 
-        const testimonials =
-            await response.json();
+    if (!testimonial) {
+      alert("Testimonial not found.");
 
-
-        const testimonial =
-            testimonials.find(
-                item => item._id === id
-            );
-
-
-        if (!testimonial) {
-
-            alert(
-                'Testimonial not found.'
-            );
-
-            return;
-
-        }
-
-
-        document.getElementById(
-            'testimonial-id'
-        ).value = testimonial._id;
-
-        document.getElementById(
-            'testimonial-name'
-        ).value = testimonial.name;
-
-        document.getElementById(
-            'testimonial-role'
-        ).value = testimonial.role;
-
-        document.getElementById(
-            'testimonial-rating'
-        ).value =
-            testimonial.rating || 5;
-
-        document.getElementById(
-            'testimonial-image'
-        ).value =
-            testimonial.image || '';
-
-        document.getElementById(
-            'testimonial-review'
-        ).value =
-            testimonial.review;
-
-
-        testimonialModalTitle.textContent =
-            'Edit Testimonial';
-
-
-        testimonialModal.classList.add(
-            'active'
-        );
-
-
-    } catch (error) {
-
-        console.error(
-            'Failed to open testimonial:',
-            error
-        );
-
-        alert(
-            'Unable to load testimonial.'
-        );
-
+      return;
     }
 
+    document.getElementById("testimonial-id").value = testimonial._id;
+
+    document.getElementById("testimonial-name").value = testimonial.name;
+
+    document.getElementById("testimonial-role").value = testimonial.role;
+
+    document.getElementById("testimonial-rating").value =
+      testimonial.rating || 5;
+
+    document.getElementById("testimonial-image").value =
+      testimonial.image || "";
+
+    document.getElementById("testimonial-review").value = testimonial.review;
+
+    testimonialModalTitle.textContent = "Edit Testimonial";
+
+    testimonialModal.classList.add("active");
+  } catch (error) {
+    console.error("Failed to open testimonial:", error);
+
+    alert("Unable to load testimonial.");
+  }
 }
 
 // =========================================================
 // SAVE TESTIMONIAL
 // =========================================================
 
-testimonialForm?.addEventListener(
-    'submit',
-    async (event) => {
+testimonialForm?.addEventListener("submit", async (event) => {
+  event.preventDefault();
 
-        event.preventDefault();
+  const id = document.getElementById("testimonial-id").value;
 
+  const testimonialData = {
+    name: document.getElementById("testimonial-name").value.trim(),
 
-        const id =
-            document.getElementById(
-                'testimonial-id'
-            ).value;
+    role: document.getElementById("testimonial-role").value.trim(),
 
+    rating: Number(document.getElementById("testimonial-rating").value),
 
-        const testimonialData = {
+    image: document.getElementById("testimonial-image").value.trim(),
 
-            name:
-                document.getElementById(
-                    'testimonial-name'
-                ).value.trim(),
+    review: document.getElementById("testimonial-review").value.trim(),
+  };
 
-            role:
-                document.getElementById(
-                    'testimonial-role'
-                ).value.trim(),
+  try {
+    const url = id
+      ? `${API_BASE_URL}/api/testimonials/${id}`
+      : `${API_BASE_URL}/api/testimonials`;
 
-            rating:
-                Number(
-                    document.getElementById(
-                        'testimonial-rating'
-                    ).value
-                ),
+    const response = await adminFetch(url, {
+      method: id ? "PUT" : "POST",
 
-            image:
-                document.getElementById(
-                    'testimonial-image'
-                ).value.trim(),
+      headers: {
+        "Content-Type": "application/json",
+      },
 
-            review:
-                document.getElementById(
-                    'testimonial-review'
-                ).value.trim()
+      body: JSON.stringify(testimonialData),
+    });
 
-        };
+    const result = await response.json();
 
-
-        try {
-
-            const url = id
-                ? `${API_BASE_URL}/api/testimonials/${id}`
-                : `${API_BASE_URL}/api/testimonials`;
-
-
-            const response = await adminFetch(
-                url,
-                {
-
-                    method: id
-                        ? 'PUT'
-                        : 'POST',
-
-                    headers: {
-                        'Content-Type':
-                            'application/json'
-                    },
-
-                    body:
-                        JSON.stringify(
-                            testimonialData
-                        )
-
-                }
-            );
-
-
-            const result =
-                await response.json();
-
-
-            if (!response.ok) {
-
-                throw new Error(
-                    result.message ||
-                    'Failed to save testimonial'
-                );
-
-            }
-
-
-            testimonialModal.classList.remove(
-                'active'
-            );
-
-
-            await loadTestimonialsAdmin();
-
-
-        } catch (error) {
-
-            console.error(
-                'Failed to save testimonial:',
-                error
-            );
-
-            alert(
-                error.message ||
-                'Failed to save testimonial.'
-            );
-
-        }
-
+    if (!response.ok) {
+      throw new Error(result.message || "Failed to save testimonial");
     }
-);
+
+    testimonialModal.classList.remove("active");
+
+    await loadTestimonialsAdmin();
+  } catch (error) {
+    console.error("Failed to save testimonial:", error);
+
+    alert(error.message || "Failed to save testimonial.");
+  }
+});
 
 // =========================================================
 // TESTIMONIAL ACTIONS
 // =========================================================
 
-testimonialsAdminContainer?.addEventListener(
-    'click',
-    async (event) => {
+testimonialsAdminContainer?.addEventListener("click", async (event) => {
+  const editButton = event.target.closest(".edit-testimonial-button");
 
-        const editButton =
-            event.target.closest(
-                '.edit-testimonial-button'
-            );
+  const deleteButton = event.target.closest(".delete-testimonial-button");
 
-        const deleteButton =
-            event.target.closest(
-                '.delete-testimonial-button'
-            );
+  if (editButton) {
+    await openEditTestimonialModal(editButton.dataset.id);
 
+    return;
+  }
 
-        if (editButton) {
+  if (deleteButton) {
+    const id = deleteButton.dataset.id;
 
-            await openEditTestimonialModal(
-                editButton.dataset.id
-            );
+    const confirmed = confirm(
+      "Are you sure you want to delete this testimonial?",
+    );
 
-            return;
-
-        }
-
-
-        if (deleteButton) {
-
-            const id =
-                deleteButton.dataset.id;
-
-
-            const confirmed =
-                confirm(
-                    'Are you sure you want to delete this testimonial?'
-                );
-
-
-            if (!confirmed) {
-                return;
-            }
-
-
-            try {
-
-                const response =
-                    await adminFetch(
-                        `${API_BASE_URL}/api/testimonials/${id}`,
-                        {
-                            method: 'DELETE'
-                        }
-                    );
-
-
-                const result =
-                    await response.json();
-
-
-                if (!response.ok) {
-
-                    throw new Error(
-                        result.message ||
-                        'Failed to delete testimonial'
-                    );
-
-                }
-
-
-                await loadTestimonialsAdmin();
-
-
-            } catch (error) {
-
-                console.error(
-                    'Failed to delete testimonial:',
-                    error
-                );
-
-                alert(
-                    error.message ||
-                    'Failed to delete testimonial.'
-                );
-
-            }
-
-        }
-
+    if (!confirmed) {
+      return;
     }
-);
+
+    try {
+      const response = await adminFetch(
+        `${API_BASE_URL}/api/testimonials/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        throw new Error(result.message || "Failed to delete testimonial");
+      }
+
+      await loadTestimonialsAdmin();
+    } catch (error) {
+      console.error("Failed to delete testimonial:", error);
+
+      alert(error.message || "Failed to delete testimonial.");
+    }
+  }
+});
 
 // =========================================================
 // TESTIMONIAL MODAL CONTROLS
 // =========================================================
 
-addTestimonialButton?.addEventListener(
-    'click',
-    openAddTestimonialModal
-);
+addTestimonialButton?.addEventListener("click", openAddTestimonialModal);
 
+closeTestimonialModal?.addEventListener("click", () => {
+  testimonialModal.classList.remove("active");
+});
 
-closeTestimonialModal?.addEventListener(
-    'click',
-    () => {
+testimonialModal?.addEventListener("click", (event) => {
+  if (event.target === testimonialModal) {
+    testimonialModal.classList.remove("active");
+  }
+});
 
-        testimonialModal.classList.remove(
-            'active'
-        );
-
-    }
-);
-
-
-testimonialModal?.addEventListener(
-    'click',
-    (event) => {
-
-        if (
-            event.target ===
-            testimonialModal
-        ) {
-
-            testimonialModal.classList.remove(
-                'active'
-            );
-
-        }
-
-    }
-);
-
-document.addEventListener(
-    'DOMContentLoaded',
-    () => {
-
-        loadTestimonialsAdmin();
-
-    }
-);
+document.addEventListener("DOMContentLoaded", () => {
+  loadTestimonialsAdmin();
+});
