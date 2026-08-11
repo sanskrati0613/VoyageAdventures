@@ -3,13 +3,12 @@ const Destination = require("../models/Destination");
 const protectAdmin = require("../middleware/authMiddleware");
 
 const multer = require("multer");
-const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("cloudinary").v2;
 
 const router = express.Router();
 
 // =========================================================
-// CLOUDINARY IMAGE UPLOAD
+// CLOUDINARY CONFIGURATION
 // =========================================================
 
 cloudinary.config({
@@ -18,27 +17,20 @@ cloudinary.config({
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: {
-    folder: "voyage-adventures/destinations",
-    allowed_formats: ["jpg", "jpeg", "png", "webp"],
-    transformation: [
-      {
-        width: 1600,
-        height: 1000,
-        crop: "limit",
-        quality: "auto",
-        fetch_format: "auto",
-      },
-    ],
-  },
-});
+// =========================================================
+// MULTER - MEMORY STORAGE
+// =========================================================
 
 const upload = multer({
-  storage,
+  storage: multer.memoryStorage(),
+
   fileFilter: (req, file, cb) => {
-    const allowedTypes = ["image/jpeg", "image/png", "image/webp", "image/jpg"];
+    const allowedTypes = [
+      "image/jpeg",
+      "image/png",
+      "image/webp",
+      "image/jpg",
+    ];
 
     if (allowedTypes.includes(file.mimetype)) {
       cb(null, true);
@@ -51,6 +43,39 @@ const upload = multer({
     fileSize: 5 * 1024 * 1024,
   },
 });
+
+// =========================================================
+// UPLOAD IMAGE TO CLOUDINARY
+// =========================================================
+
+const uploadToCloudinary = (fileBuffer) => {
+  return new Promise((resolve, reject) => {
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        folder: "voyage-adventures/destinations",
+        resource_type: "image",
+        transformation: [
+          {
+            width: 1600,
+            height: 1000,
+            crop: "limit",
+            quality: "auto",
+            fetch_format: "auto",
+          },
+        ],
+      },
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      },
+    );
+
+    uploadStream.end(fileBuffer);
+  });
+};
 
 // =========================================================
 // GET ALL DESTINATIONS
@@ -134,6 +159,9 @@ router.post("/", protectAdmin, upload.single("image"), async (req, res) => {
       });
     }
 
+    // Upload image to Cloudinary
+    const cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+
     let parsedHighlights = [];
 
     if (highlights) {
@@ -145,35 +173,23 @@ router.post("/", protectAdmin, upload.single("image"), async (req, res) => {
 
     const destination = await Destination.create({
       name,
-
       location,
-
-      image: req.file.path,
-
+      image: cloudinaryResult.secure_url,
       rating: Number(rating),
-
       price: Number(price),
-
       bestTime,
-
       type,
-
       description,
-
       highlights: parsedHighlights,
-
       departures: [],
     });
 
     res.status(201).json({
       message: "Destination added successfully",
-
       destination,
     });
   } catch (error) {
     console.error("Failed to add destination:", error);
-
-    // Remove uploaded image if saving failed
 
     res.status(400).json({
       message: error.message || "Failed to add destination",
@@ -186,71 +202,89 @@ router.post("/", protectAdmin, upload.single("image"), async (req, res) => {
 // Admin only
 // =========================================================
 
-router.put("/:id", protectAdmin, upload.single("image"), async (req, res) => {
-  try {
-    const destination = await Destination.findById(req.params.id);
+router.put(
+  "/:id",
+  protectAdmin,
+  upload.single("image"),
+  async (req, res) => {
+    try {
+      const destination = await Destination.findById(req.params.id);
 
-    if (!destination) {
-      return res.status(404).json({
-        message: "Destination not found",
+      if (!destination) {
+        return res.status(404).json({
+          message: "Destination not found",
+        });
+      }
+
+      const {
+        name,
+        location,
+        rating,
+        price,
+        bestTime,
+        type,
+        description,
+        highlights,
+      } = req.body;
+
+      if (name !== undefined) {
+        destination.name = name;
+      }
+
+      if (location !== undefined) {
+        destination.location = location;
+      }
+
+      if (rating !== undefined) {
+        destination.rating = Number(rating);
+      }
+
+      if (price !== undefined) {
+        destination.price = Number(price);
+      }
+
+      if (bestTime !== undefined) {
+        destination.bestTime = bestTime;
+      }
+
+      if (type !== undefined) {
+        destination.type = type;
+      }
+
+      if (description !== undefined) {
+        destination.description = description;
+      }
+
+      if (highlights !== undefined) {
+        destination.highlights = highlights
+          .split(",")
+          .map((item) => item.trim())
+          .filter(Boolean);
+      }
+
+      // Only replace the image if
+      // admin selected a new one.
+      if (req.file) {
+        const cloudinaryResult = await uploadToCloudinary(req.file.buffer);
+
+        destination.image = cloudinaryResult.secure_url;
+      }
+
+      await destination.save();
+
+      res.json({
+        message: "Destination updated successfully",
+        destination,
+      });
+    } catch (error) {
+      console.error("Failed to update destination:", error);
+
+      res.status(400).json({
+        message: error.message || "Failed to update destination",
       });
     }
-
-    const {
-      name,
-      location,
-      rating,
-      price,
-      bestTime,
-      type,
-      description,
-      highlights,
-    } = req.body;
-
-    if (name !== undefined) destination.name = name;
-
-    if (location !== undefined) destination.location = location;
-
-    if (rating !== undefined) destination.rating = Number(rating);
-
-    if (price !== undefined) destination.price = Number(price);
-
-    if (bestTime !== undefined) destination.bestTime = bestTime;
-
-    if (type !== undefined) destination.type = type;
-
-    if (description !== undefined) destination.description = description;
-
-    if (highlights !== undefined) {
-      destination.highlights = highlights
-        .split(",")
-        .map((item) => item.trim())
-        .filter(Boolean);
-    }
-
-    // Only replace the image if
-    // admin selected a new one.
-
-    if (req.file) {
-      destination.image = req.file.path;
-    }
-
-    await destination.save();
-
-    res.json({
-      message: "Destination updated successfully",
-
-      destination,
-    });
-  } catch (error) {
-  console.error("Failed to update destination:", error);
-
-  res.status(400).json({
-    message: error.message || "Failed to update destination",
-  });
-}
-
-});
+  },
+);
 
 // =========================================================
 // DELETE DESTINATION
@@ -306,7 +340,7 @@ router.post("/:id/departures", protectAdmin, async (req, res) => {
 
     if (end <= start) {
       return res.status(400).json({
-        message: "End date must be after the start date.",
+        message: "End date must be after start date.",
       });
     }
 
@@ -326,11 +360,8 @@ router.post("/:id/departures", protectAdmin, async (req, res) => {
 
     destination.departures.push({
       startDate: start,
-
       endDate: end,
-
       totalSeats: seats,
-
       bookedSeats: 0,
     });
 
@@ -341,7 +372,6 @@ router.post("/:id/departures", protectAdmin, async (req, res) => {
 
     res.status(201).json({
       message: "Departure added successfully",
-
       departure: newDeparture,
     });
   } catch (error) {
@@ -379,9 +409,7 @@ router.put("/:id/departures/:departureId", protectAdmin, async (req, res) => {
     }
 
     const start = new Date(startDate);
-
     const end = new Date(endDate);
-
     const seats = Number(totalSeats);
 
     if (isNaN(start.getTime()) || isNaN(end.getTime())) {
@@ -392,7 +420,7 @@ router.put("/:id/departures/:departureId", protectAdmin, async (req, res) => {
 
     if (end <= start) {
       return res.status(400).json({
-        message: "End date must be after the start date.",
+        message: "End date must be after start date.",
       });
     }
 
@@ -404,7 +432,6 @@ router.put("/:id/departures/:departureId", protectAdmin, async (req, res) => {
 
     // Never allow admin to reduce capacity
     // below seats already booked.
-
     if (seats < departure.bookedSeats) {
       return res.status(400).json({
         message: `You cannot set total seats below the ${departure.bookedSeats} seats already booked.`,
@@ -412,16 +439,13 @@ router.put("/:id/departures/:departureId", protectAdmin, async (req, res) => {
     }
 
     departure.startDate = start;
-
     departure.endDate = end;
-
     departure.totalSeats = seats;
 
     await destination.save();
 
     res.json({
       message: "Departure updated successfully",
-
       departure,
     });
   } catch (error) {
@@ -461,7 +485,6 @@ router.delete(
 
       // Do not allow a departure with
       // existing bookings to be deleted.
-
       if (departure.bookedSeats > 0) {
         return res.status(400).json({
           message: `This departure has ${departure.bookedSeats} booked seat(s) and cannot be deleted.`,
