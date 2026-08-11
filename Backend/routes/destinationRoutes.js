@@ -277,12 +277,16 @@ router.put(
         destination,
       });
     } catch (error) {
-      console.error("Failed to update destination:", error);
+    console.error("FAILED TO UPDATE DESTINATION");
+    console.error("Error:", error);
+    console.error("Error message:", error?.message);
+    console.error("Error stack:", error?.stack);
 
-      res.status(400).json({
-        message: error.message || "Failed to update destination",
-      });
-    }
+    res.status(500).json({
+        message: error?.message || String(error),
+        error: error,
+    });
+}
   },
 );
 
