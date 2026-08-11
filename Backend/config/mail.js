@@ -1,22 +1,43 @@
-const nodemailer = require("nodemailer");
+const { Resend } = require("resend");
 
-const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 465,
-  secure: true,
+const resend = new Resend(process.env.RESEND_API_KEY);
 
-  auth: {
-    user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_APP_PASSWORD,
-  },
-});
+const FROM_EMAIL = "onboarding@resend.dev";
 
-transporter.verify((error, success) => {
-  if (error) {
-    console.error("Email connection failed:", error.message);
-  } else {
-    console.log("Email server ready");
-  }
-});
+const ADMIN_EMAIL =
+    process.env.CONTACT_RECEIVER_EMAIL ||
+    process.env.EMAIL_USER;
 
-module.exports = transporter;
+async function sendEmail({
+    to,
+    subject,
+    html,
+    replyTo
+}) {
+    const { data, error } = await resend.emails.send({
+        from: `Voyage Adventures <${FROM_EMAIL}>`,
+        to,
+        subject,
+        html,
+        ...(replyTo ? { replyTo } : {})
+    });
+
+    if (error) {
+        console.error("Resend email failed:", error);
+        throw new Error(
+            error.message || "Failed to send email"
+        );
+    }
+
+    console.log(
+        `Resend email sent successfully: ${data?.id || "unknown"}`
+    );
+
+    return data;
+}
+
+module.exports = {
+    sendEmail,
+    ADMIN_EMAIL,
+    FROM_EMAIL
+};
